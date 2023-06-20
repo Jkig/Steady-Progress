@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		659CB2322A416C5D003556C0 /*  MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CB2312A416C5D003556C0 /*  MainView.swift */; };
+		659CB2342A416C8C003556C0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CB2332A416C8C003556C0 /* SettingsView.swift */; };
 		65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB27F22A36CA7C00A263AC /* Steady_ProgressApp.swift */; };
 		65DB27F52A36CA7C00A263AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB27F42A36CA7C00A263AC /* ContentView.swift */; };
 		65DB27F72A36CA7E00A263AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65DB27F62A36CA7E00A263AC /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		659CB2312A416C5D003556C0 /*  MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " MainView.swift"; sourceTree = "<group>"; };
+		659CB2332A416C8C003556C0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		65DB27EF2A36CA7C00A263AC /* Steady Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Steady Progress.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65DB27F22A36CA7C00A263AC /* Steady_ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Steady_ProgressApp.swift; sourceTree = "<group>"; };
 		65DB27F42A36CA7C00A263AC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +36,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		659CB22D2A416BB2003556C0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				65DB27F42A36CA7C00A263AC /* ContentView.swift */,
+				659CB2332A416C8C003556C0 /* SettingsView.swift */,
+				659CB2312A416C5D003556C0 /*  MainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		659CB22E2A416BC3003556C0 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		659CB22F2A416BCD003556C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		659CB2302A416BF2003556C0 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				65DB27F62A36CA7E00A263AC /* Assets.xcassets */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		65DB27E62A36CA7C00A263AC = {
 			isa = PBXGroup;
 			children = (
@@ -51,9 +87,11 @@
 		65DB27F12A36CA7C00A263AC /* Steady Progress */ = {
 			isa = PBXGroup;
 			children = (
+				659CB2302A416BF2003556C0 /* Other */,
+				659CB22F2A416BCD003556C0 /* Models */,
+				659CB22E2A416BC3003556C0 /* ViewModels */,
+				659CB22D2A416BB2003556C0 /* Views */,
 				65DB27F22A36CA7C00A263AC /* Steady_ProgressApp.swift */,
-				65DB27F42A36CA7C00A263AC /* ContentView.swift */,
-				65DB27F62A36CA7E00A263AC /* Assets.xcassets */,
 				65DB27F82A36CA7E00A263AC /* Preview Content */,
 			);
 			path = "Steady Progress";
@@ -138,7 +176,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				65DB27F52A36CA7C00A263AC /* ContentView.swift in Sources */,
+				659CB2342A416C8C003556C0 /* SettingsView.swift in Sources */,
 				65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */,
+				659CB2322A416C5D003556C0 /*  MainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

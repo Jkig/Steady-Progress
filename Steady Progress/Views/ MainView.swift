@@ -1,52 +1,14 @@
 //
-//  ContentView.swift
+//   MainView.swift
 //  Steady Progress
 //
-//  Created by Derek Leroux on 6/11/23.
+//  Created by Derek Leroux on 6/19/23.
 //
+
 import SwiftUI
 import Charts
 
-
-
-struct ContentView: View {
-    @State private var selectedTab = 1
-    
-    var body: some View {
-        TabView (selection: $selectedTab) {
-            Page1View()
-                .tabItem {
-                    Image(systemName: "map")
-                }
-                .tag(0)
-
-            main()
-                .tabItem {
-                    Image(systemName: "scalemass")
-                }
-                .tag(1)
-
-            settings()
-                .tabItem {
-                    Image(systemName: "gear")
-                }
-                .tag(2)
-        }
-    }
-}
-
-struct Page1View: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Set goals and stuff here")
-        }
-    }
-}
-
-struct main: View {
+struct MainView: View {
     @State private var text = ""
     
     struct model: Identifiable {
@@ -74,39 +36,63 @@ struct main: View {
     
     // set much better in time, probs just local store as variables and recalc on every new point user adds:
     
-    var minVal = 150
+    var minVal = false ? 150 : min(150, 175)
     var maxVal = 200
-    var trueWeight = 182.5
+    var trueWeight = 162.2
+    
+    var goal = 160
     
 
     var body: some View {
         VStack {
-            GroupBox ("Weight over time"){
+            GroupBox{
                 Chart(data) {
                     LineMark(
                         x: .value("Month", $0.date),
                         y: .value("Weight", $0.weight)
                     )
+                    
+                    RuleMark(y: .value("goal", goal))
+                        .foregroundStyle(.red)
                 }
                 .frame(height:400)
                 .chartYScale(domain: minVal...maxVal, type: nil)
             }
-            .padding()
+            .padding([.bottom])
             
             HStack{
-                Text("True Weight:")
-                .font(.system(size:30))
+                Spacer()
                 
                 Text(String(format: "%.1f", trueWeight))
                 .font(.system(size:30))
+                
+                Spacer()
+                
+                Text("Estimated True Weight")
+                .font(.system(size:15))
             }
             
+            Spacer()
+            
             HStack {
-                TextField("Enter text", text: $text)
+                Button(action: {
+                    // clear text and remove the last measurement
+                    print(text)
+                }) {
+                    Text("Remove")
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                
+                TextField("Measurment", text: $text)
                     .padding()
-                    .border(Color.gray, width: 0.5)
                 
                 Button(action: {
+                    // handle errors for bad values,
+                    // append new value
+                    // recalculate and re
                     print(text)
                 }) {
                     Text("Add")
@@ -121,51 +107,8 @@ struct main: View {
     }
 }
 
-struct settings: View {
-    @State private var isKilograms = false
-    @State private var showGoal = false
-    @State private var showGoalLine = false
-    
-    var body: some View {
-        VStack{
-            Text("Settings page")
-            
-            HStack {
-                Spacer()
-                Toggle(isOn: $isKilograms) {
-                    Text("Use KG")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                Spacer()
-            }
-            .padding()
-            HStack {
-                Spacer()
-                Toggle(isOn: $showGoal) {
-                    Text("Show Goal")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                Spacer()
-            }
-            .padding()
-            HStack {
-                Spacer()
-                Toggle(isOn: $showGoalLine) {
-                    Text("Show Goal Line")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                Spacer()
-            }
-            .padding()
-        }
-    }
-}
-
-
-struct ContentView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainView()
     }
 }
-
-
