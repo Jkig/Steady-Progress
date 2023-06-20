@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		656FF8932A4257FD006ED548 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FF8922A4257FD006ED548 /* EditView.swift */; };
+		656FF8952A4261F4006ED548 /* MeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FF8942A4261F4006ED548 /* MeasurementView.swift */; };
 		659CB2322A416C5D003556C0 /*  MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CB2312A416C5D003556C0 /*  MainView.swift */; };
 		659CB2342A416C8C003556C0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CB2332A416C8C003556C0 /* SettingsView.swift */; };
 		65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB27F22A36CA7C00A263AC /* Steady_ProgressApp.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		656FF8922A4257FD006ED548 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		656FF8942A4261F4006ED548 /* MeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementView.swift; sourceTree = "<group>"; };
 		659CB2312A416C5D003556C0 /*  MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " MainView.swift"; sourceTree = "<group>"; };
 		659CB2332A416C8C003556C0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		65DB27EF2A36CA7C00A263AC /* Steady Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Steady Progress.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,8 +44,10 @@
 			isa = PBXGroup;
 			children = (
 				65DB27F42A36CA7C00A263AC /* ContentView.swift */,
+				656FF8942A4261F4006ED548 /* MeasurementView.swift */,
 				659CB2332A416C8C003556C0 /* SettingsView.swift */,
 				659CB2312A416C5D003556C0 /*  MainView.swift */,
+				656FF8922A4257FD006ED548 /* EditView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,9 +182,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				65DB27F52A36CA7C00A263AC /* ContentView.swift in Sources */,
+				656FF8932A4257FD006ED548 /* EditView.swift in Sources */,
 				659CB2342A416C8C003556C0 /* SettingsView.swift in Sources */,
 				65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */,
 				659CB2322A416C5D003556C0 /*  MainView.swift in Sources */,
+				656FF8952A4261F4006ED548 /* MeasurementView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

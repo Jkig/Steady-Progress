@@ -88,6 +88,8 @@ struct SettingsView: View {
             }
             .padding()
             
+            Spacer()
+            
         }
     }
 }
