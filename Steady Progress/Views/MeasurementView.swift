@@ -14,7 +14,6 @@ struct MeasurementView: View {
     
     var body: some View {
         HStack{
-            Spacer()
             Text("Date: \(MDate)")
             Spacer()
             Text(String(format: "%.1f", MWeight))
@@ -28,9 +27,8 @@ struct MeasurementView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            Spacer()
         }
-        .padding()
+        .padding([.leading,.trailing])
     }
 }
 

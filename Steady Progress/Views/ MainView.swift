@@ -7,6 +7,25 @@
 
 import SwiftUI
 import Charts
+import Combine
+
+
+extension View {
+var keyboardPublisher: AnyPublisher<Bool, Never> {
+    Publishers
+        .Merge(
+            NotificationCenter
+                .default
+                .publisher(for: UIResponder.keyboardWillShowNotification)
+                .map { _ in true },
+            NotificationCenter
+                .default
+                .publisher(for: UIResponder.keyboardWillHideNotification)
+                .map { _ in false })
+        .debounce(for: .seconds(0.1), scheduler: RunLoop.main)
+        .eraseToAnyPublisher()
+}}
+
 
 struct model: Identifiable {
     var id: UUID
@@ -21,6 +40,7 @@ struct model: Identifiable {
 }
 
 struct MainView: View {
+    @State var keyboardIsPresented: Bool = false
     @State private var text = ""
     
     // test data:
@@ -33,6 +53,8 @@ struct MainView: View {
             model(date: index + 1, weight: weight)
         }
     }
+    // build smooth data from data,
+    
     
     // set much better in time, probs just local store as variables and recalc on every new point user adds:
     
@@ -52,6 +74,8 @@ struct MainView: View {
                             x: .value("Month", $0.date),
                             y: .value("Weight", $0.weight)
                         )
+                        // graph smoothed data
+                        
                         
                         RuleMark(y: .value("goal", goal))
                             .foregroundStyle(.red)
@@ -75,30 +99,47 @@ struct MainView: View {
                 
                 Spacer()
                 
+                if keyboardIsPresented {
+                    // Display Toolbar View
+                    HStack(alignment: .center) {
+                        NavigationLink("Edit Old", destination: EditView(data:data))
+                        
+                        Text(text)
+                            .padding()
+                        Spacer()
+                        Button {
+                            // Dismiss keyboard
+                            UIApplication.shared.sendAction(
+                                #selector(UIResponder.resignFirstResponder),
+                                to: nil,
+                                from: nil,
+                                for: nil
+                            )
+                        } label: {
+                                Text("Add")
+                        }
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
+                    .padding()
+                    .frame(width: UIScreen.main.bounds.width, height: 40)
+                }
+                
                 HStack {
                     
                     NavigationLink("Edit Old", destination: EditView(data:data))
                     
                     TextField("Measurment", text: $text)
-                        // .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                         .padding()
-                    
-                    Button(action: {
-                        // handle errors for bad values,
-                        // append new value
-                        // recalculate and re
-                        print(text)
-                    }) {
-                        Text("Add")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    
                 }
             }
             .padding()
+            .onReceive(keyboardPublisher) { presented in
+                self.keyboardIsPresented = presented
+            }
         }
     }
 }
