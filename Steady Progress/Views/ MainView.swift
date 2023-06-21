@@ -101,11 +101,27 @@ struct MainView: View {
                 if keyboardIsPresented {
                     // Display Toolbar View
                     HStack(alignment: .center) {
-                        NavigationLink("Edit Old", destination: EditView(data:data))
+                        Button {
+                            // Dismiss keyboard
+                            UIApplication.shared.sendAction(
+                                #selector(UIResponder.resignFirstResponder),
+                                to: nil,
+                                from: nil,
+                                for: nil
+                            )
+                        } label: {
+                                Text("Cancel")
+                        }
+                        .padding(8)
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                         
                         Text(text)
                             .padding()
                         Spacer()
+                        
+                        
                         Button {
                             // Dismiss keyboard
                             UIApplication.shared.sendAction(

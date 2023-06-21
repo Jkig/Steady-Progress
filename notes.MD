@@ -42,5 +42,6 @@
 # Some notes/ ideas:
 * for now, super simple, no accounts or database yet, to get rolling quick just local storage of data, stored as (date and hour, weight)
 * user defaults
+* take Calorie info from apple watch or health to help estimate calories for a normal day etc.
 * Bmi, display ranges
 * A new scale that doesn't show the user the current measurement is a good idea

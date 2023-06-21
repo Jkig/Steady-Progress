@@ -20,99 +20,124 @@ struct SettingsView: View {
     
     
     var body: some View {
-        VStack{
-            HStack {
-                Spacer()
-                Toggle(isOn: $isKilograms) {
-                    Text("Use KG")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                Spacer()
-            }
-            .padding()
-            HStack {
-                Spacer()
-                Toggle(isOn: $showGoal) {
-                    Text("Show Goal")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                Spacer()
-            }
-            .padding()
-            HStack {
-                Spacer()
-                Toggle(isOn: $showGoalLine) {
-                    Text("Show Goal Line")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                Spacer()
-            }
-            .padding()
-            HStack {
-                Spacer()
-                Toggle(isOn: $showSmooth) {
-                    Text("Show Smoothed Measurements:")
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                Spacer()
-            }
-            .padding()
-            HStack{
-                Spacer()
-                Text("Goal Direction")
-                Spacer()
-                Picker("Select a paint color", selection: $selection) {
-                    ForEach(direction, id: \.self) {
-                        Text($0)
+        NavigationView {
+            VStack{
+                ScrollView {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Toggle(isOn: $isKilograms) {
+                                Text("Use KG")
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+                            Spacer()
+                        }
+                        .padding()
+                        HStack {
+                            Spacer()
+                            Toggle(isOn: $showGoal) {
+                                Text("Show Goal")
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+                            Spacer()
+                        }
+                        .padding()
+                        HStack {
+                            Spacer()
+                            Toggle(isOn: $showGoalLine) {
+                                Text("Show Goal Line")
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+                            Spacer()
+                        }
+                        .padding()
+                        HStack {
+                            Spacer()
+                            Toggle(isOn: $showSmooth) {
+                                Text("Show Smoothed Measurements:")
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+                            Spacer()
+                        }
+                        .padding()
+                        HStack{
+                            Spacer()
+                            Text("Goal Direction")
+                            Spacer()
+                            Picker("Select a paint color", selection: $selection) {
+                                ForEach(direction, id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            Spacer()
+                        }
+                        .padding()
+                        HStack{
+                            Spacer()
+                            Text("Goal Weight")
+                                .padding([.trailing])
+                            Spacer()
+                                .padding([.trailing])
+                            TextField("Enter Value", value: $goalWeight, format: .number)
+                                .keyboardType(.decimalPad)
+                                .padding([.leading, .trailing])
+                        }
+                        .padding()
+                        
+                        
+                        VStack{
+                            Button(action:{}, label:{
+                                NavigationLink("Set Personal Data", destination: PersonalInfoView())
+                            })
+                            .padding(8)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            
+                            HStack{
+                                Text("Age: 50")
+                                Text("BMI: 50")
+                                Text("Height: 50")
+                            }
+                            Text("Passive caloric Burn: 2000")
+                        }
+                        Spacer()
+                    }}
+                    if keyboardIsPresented {
+                        // Display Toolbar View
+                        HStack(alignment: .center) {
+                            Spacer()
+                            Button {
+                                // Dismiss keyboard
+                                UIApplication.shared.sendAction(
+                                    #selector(UIResponder.resignFirstResponder),
+                                    to: nil,
+                                    from: nil,
+                                    for: nil
+                                )
+                            } label: {
+                                Text("Set")
+                            }
+                            .padding(8)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .padding()
+                        .frame(width: UIScreen.main.bounds.width, height: 35)
                     }
                 }
-                .pickerStyle(.menu)
-                Spacer()
-            }
-            .padding()
-            HStack{
-                Spacer()
-                Text("Goal Weight")
-                    .padding([.trailing])
-                Spacer()
-                    .padding([.trailing])
-                TextField("Enter Value", value: $goalWeight, format: .number)
-                    .keyboardType(.decimalPad)
-                    .padding([.leading, .trailing])
-            }
-            .padding()
-            Spacer()
-            if keyboardIsPresented {
-                // Display Toolbar View
-                HStack(alignment: .center) {
-                    Spacer()
-                    Button {
-                        // Dismiss keyboard
-                        UIApplication.shared.sendAction(
-                            #selector(UIResponder.resignFirstResponder),
-                            to: nil,
-                            from: nil,
-                            for: nil
-                        )
-                    } label: {
-                            Text("Set")
-                    }
-                    .padding(8)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                .padding()
-                .frame(width: UIScreen.main.bounds.width, height: 35)
-            }
-        }
-        .padding()
-        .onReceive(keyboardPublisher) { presented in
-            self.keyboardIsPresented = presented
-        }
+                
             
-        }
+            }
+            .padding()
+            .onReceive(keyboardPublisher) { presented in
+                self.keyboardIsPresented = presented
+            }
+        
     }
+}
 
 
 struct SettingsView_Previews: PreviewProvider {
