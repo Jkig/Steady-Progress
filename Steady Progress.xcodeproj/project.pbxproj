@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		65630F9E2A4394F0005173F8 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65630F9D2A4394F0005173F8 /* PersonalInfoView.swift */; };
+		65630FA02A439AD7005173F8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65630F9F2A439AD7005173F8 /* MainViewModel.swift */; };
 		656FF8932A4257FD006ED548 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FF8922A4257FD006ED548 /* EditView.swift */; };
 		656FF8952A4261F4006ED548 /* MeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FF8942A4261F4006ED548 /* MeasurementView.swift */; };
 		659CB2322A416C5D003556C0 /*  MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CB2312A416C5D003556C0 /*  MainView.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		65630F9D2A4394F0005173F8 /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
+		65630F9F2A439AD7005173F8 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		656FF8922A4257FD006ED548 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		656FF8942A4261F4006ED548 /* MeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementView.swift; sourceTree = "<group>"; };
 		659CB2312A416C5D003556C0 /*  MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " MainView.swift"; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 		659CB22E2A416BC3003556C0 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				65630F9F2A439AD7005173F8 /* MainViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */,
 				659CB2322A416C5D003556C0 /*  MainView.swift in Sources */,
 				656FF8952A4261F4006ED548 /* MeasurementView.swift in Sources */,
+				65630FA02A439AD7005173F8 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
