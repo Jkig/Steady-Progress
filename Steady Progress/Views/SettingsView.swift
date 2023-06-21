@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @State var keyboardIsPresented: Bool = false
+    
     @State private var isKilograms = false
     @State private var showGoal = true
     @State private var showGoalLine = true
     @State private var showSmooth = true
     @State private var selection = "Loose weight"
     let direction = ["Loose weight", "Maintain weight", "Gain weight"]
-    @State private var goalWeight = 0
+    @State private var goalWeight: Float = 0
     
     
     var body: some View {
@@ -75,24 +77,43 @@ struct SettingsView: View {
                 Spacer()
                     .padding([.trailing])
                 TextField("Enter Value", value: $goalWeight, format: .number)
+                    .keyboardType(.decimalPad)
                     .padding([.leading, .trailing])
-                Button(action: {
-                    // set the goal weight
-                }) {
-                    Text("Set")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
             }
             .padding()
-            
             Spacer()
+            if keyboardIsPresented {
+                // Display Toolbar View
+                HStack(alignment: .center) {
+                    Spacer()
+                    Button {
+                        // Dismiss keyboard
+                        UIApplication.shared.sendAction(
+                            #selector(UIResponder.resignFirstResponder),
+                            to: nil,
+                            from: nil,
+                            for: nil
+                        )
+                    } label: {
+                            Text("Set")
+                    }
+                    .padding(8)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                .padding()
+                .frame(width: UIScreen.main.bounds.width, height: 35)
+            }
+        }
+        .padding()
+        .onReceive(keyboardPublisher) { presented in
+            self.keyboardIsPresented = presented
+        }
             
         }
     }
-}
+
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {

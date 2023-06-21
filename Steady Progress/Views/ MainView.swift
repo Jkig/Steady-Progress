@@ -89,12 +89,11 @@ struct MainView: View {
                     Spacer()
                     
                     Text(String(format: "%.1f", trueWeight))
-                        .font(.system(size:30))
-                    
-                    Spacer()
+                        .font(.system(size:35))
                     
                     Text("Estimated True Weight")
-                        .font(.system(size:15))
+                        .font(.system(size:12))
+                        .offset(y: 7)
                 }
                 
                 Spacer()
@@ -118,13 +117,13 @@ struct MainView: View {
                         } label: {
                                 Text("Add")
                         }
-                        .padding()
+                        .padding(8)
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                     }
                     .padding()
-                    .frame(width: UIScreen.main.bounds.width, height: 40)
+                    .frame(width: UIScreen.main.bounds.width, height: 35)
                 }
                 
                 HStack {
