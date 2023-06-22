@@ -27,18 +27,6 @@ var keyboardPublisher: AnyPublisher<Bool, Never> {
 }}
 
 
-struct Model: Identifiable {
-    var id: UUID // I think change this to simly the index it is at, should be fine onece dates are accrate
-    var date: Int
-    var weight: Float
-    
-    init(date:Int, weight:Float) {
-        self.id = UUID()
-        self.date = date
-        self.weight = weight
-    }
-}
-
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @StateObject var settingsViewModel = SettingsViewModel()
@@ -78,7 +66,7 @@ struct MainView: View {
                             .font(.system(size:35))
                         
                         Text(String(format: "%.1f", viewModel.smoothData.last!.weight-viewModel.startWeight))
-                            .foregroundColor(((settingsViewModel.selection == "Loose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) <= 0) || ((settingsViewModel.selection == "Loose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) >= 0))) ? .green : .black)
+                            .foregroundColor(((settingsViewModel.selection == "Loose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) <= 0) || ((settingsViewModel.selection == "Gain weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) >= 0))) ? .green : .black)
                             .font(.system(size:20))
                             .offset(y: 5)
                         

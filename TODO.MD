@@ -1,10 +1,11 @@
 # Current todo (final big test data and then set up for read data):
-* a little bit more testing with synthetic data to make sure smoothing helps spot slow weight change, and compare 10 days - 14 days? Maybe get rid of 14 days?
-* have nick, zo, ben, maybe one more check to see if it looks good, then get rid of this datatype/set of synthetic data
+* have nick, zo, ben, maybe one more check to see if it looks good, then decide on smoothing
 
 
-* change Model to use correct date type (down to hour, maybe day), and try to use index in data as ID instead of UUID?, this would speed up lots of operations (may not be too important, but shouldn't take long)
-* add measurement: Do nothing if the most recent was within the same hour.(maybe day?). Build to standard I set in Model, send them error
+* change Model to use correct date type (down to hour, maybe day)
+* add measurement
+* make sure to test this, and that switch to other calculation happens at the right time
+* do not add if the most recent was within the same hour.(maybe day?)
 * store User data on device
 
 

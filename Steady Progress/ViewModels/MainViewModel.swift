@@ -8,6 +8,19 @@
 import Foundation
 
 
+struct Model: Identifiable {
+    var id: Int // I think change this to simly the index it is at, should be fine onece dates are accrate
+    var date: Int
+    var weight: Float
+    
+    init(id:Int ,date:Int, weight:Float) {
+        self.id = id
+        self.date = date
+        self.weight = weight
+    }
+}
+
+
 class MainViewModel: ObservableObject {
     // try importing settings here, get goal..
     @Published var keyboardIsPresented: Bool = false
@@ -17,23 +30,27 @@ class MainViewModel: ObservableObject {
     @Published var daysToSmooth: Int = 10 // well tested and can change arbitrarily
     @Published var startWeight:Float = 0
     
-    // test data: setup here and on basically
-    @Published var weights: [Float] = [188.4, 184.5, 184.6, 185.7, 180.0, 179.4, 185.0, 181.0, 186.0, 178.7, 179.6, 186.0, 179.9, 183.6, 186.4, 182.0, 180.3, 182.7, 181.2, 179.8, 181.6, 183.1, 176.4, 179.7, 181.6, 180.5, 176.2, 174.4, 175.1, 178.1, 174.6, 180.3, 182.0, 176.2, 176.9, 179.4, 174.7, 180.5, 181.7, 180.2, 176.2, 175.9, 174.3, 177.4, 174.3, 180.6, 175.0, 174.9, 176.0, 170.1, 170.1, 172.0, 175.2, 169.4, 177.7, 177.2, 174.0, 174.2, 171.6, 176.0, 176.1, 172.3, 169.8, 168.6, 167.7, 173.3, 170.7, 173.8, 174.0, 170.0, 173.6, 173.2, 174.4, 168.1, 174.8, 174.3, 166.8, 172.9, 171.3, 168.5, 168.8, 166.5, 165.2, 169.9, 167.2, 169.7, 168.1, 167.7, 169.4, 170.8, 162.5, 164.7, 163.1, 165.3, 163.1, 164.4, 162.2, 169.1, 163.3, 169.2]
-
     
     @Published var data: [Model] = []
     @Published var smoothData: [Model] = []
     
     // initailize smooth data as copy of data after it is built, then build it with a for loop:
     init() {
-        // this declaration will not be neccisary later, and everything else will work fine when using a data, maybe be carefull to copy dae rather than use index
+        /**/
+        // setting up testing data:
+        // commenting all this out and it works as normal
+        let weights: [Float] = [186.2, 185.8, 186.4, 186.2, 184.8, 186.2, 186.7, 186.6, 185.1, 184.3, 184.9, 183.3, 185.9, 184.7, 182.5, 184.6, 183.2, 182.7, 182.8, 183.5, 185.7, 182.8, 182.5, 183.0, 184.3, 185.4, 180.2, 179.2, 183.9, 184.6, 179.4, 180.8, 182.6, 178.6, 181.3, 179.2, 183.9, 179.8, 182.9, 180.5, 183.2, 179.8, 180.5, 182.7, 179.9, 179.9, 180.7, 179.5, 180.0, 180.1, 180.3, 181.5, 180.3, 178.9, 177.5, 181.8, 181.0, 176.7, 176.1, 178.7, 181.8, 179.6, 178.1, 181.5, 177.6, 180.3, 177.7, 175.5, 179.8, 178.4, 180.7, 179.7, 179.9, 180.5, 180.1, 175.7, 178.6, 175.6, 178.2, 176.0, 177.8, 175.5, 176.7, 173.8, 178.0, 176.7, 176.2, 174.6, 176.9, 176.6, 173.4, 173.0, 175.0, 176.3, 176.8, 173.8, 178.0, 174.8, 172.5, 172.7]
+        
         data = weights.enumerated().map { index, weight in
-            Model(date: index + 1, weight: weight)
+            Model(id: index, date: index, weight: weight)
         }
+        // end testing data setup
+        /**/
+        
         var incomplete:Float = 0
         for i in 0..<min(daysToSmooth-1, data.count){
             incomplete += data[i].weight
-            smoothData.append(Model(date:data[i].date, weight: incomplete/Float(i+1)))
+            smoothData.append(Model(id: i, date:data[i].date, weight: incomplete/Float(i+1)))
             
             if data[i].weight > maxVal {
                     maxVal = data[i].weight
@@ -55,11 +72,11 @@ class MainViewModel: ObservableObject {
             if data[daysToSmooth-1].weight < minVal {
                     minVal = data[daysToSmooth-1].weight
             }
-            smoothData.append(Model(date:data[daysToSmooth-1].date, weight: runSum/Float(daysToSmooth)))
+            smoothData.append(Model(id: daysToSmooth-1, date:data[daysToSmooth-1].date, weight: runSum/Float(daysToSmooth)))
             for i in daysToSmooth..<data.count{
                 runSum += data[i].weight
                 runSum -= data[i-(daysToSmooth)].weight
-                smoothData.append(Model(date:data[i].date, weight: runSum/Float(daysToSmooth)))
+                smoothData.append(Model(id: i, date:data[i].date, weight: runSum/Float(daysToSmooth)))
                 
                 if data[i].weight > maxVal {
                         maxVal = data[i].weight
@@ -72,6 +89,15 @@ class MainViewModel: ObservableObject {
         // now alter min/max value
         minVal = min(goal*0.95, minVal*0.95)
         maxVal = max(goal*1.05+1, (maxVal*1.05)+1)
+        
+        /*
+        // print through data
+        for i in 0..<data.count{
+            print(i)
+            print(data[i].id, data[i].date, data[i].weight)
+            print(smoothData[i].id, smoothData[i].date, smoothData[i].weight)
+        }
+         */
     }
     
     
@@ -82,9 +108,37 @@ class MainViewModel: ObservableObject {
         // if deleting the largest or smallest just recalculate?
     }
     
-    func addMeasurement() {
-        // TODO: takes in a number/text, and appends one last measurement, then appends a smoothed measurement too
-        // check if new measurement is largest or smallest, and updatae
+    func addMeasurement(weight:Float) {
+        /*
+        if data.last.date is within an hour or same day?? not sure yet of last measurement {
+            let alert = Alert(title: Text("Too soon"), message: Text("Results take time, please wait until tomorrow to measure again :)"), dismissButton: .default(Text("OK")))
+            present(alert, animated: true)
+            return
+        }
+         */
+        
+        minVal = min(weight*0.95, minVal)
+        maxVal = max(weight*1.05+1, maxVal)
+        
+        // data.append(Model(id: data.count, date: Date(), weight: weight))
+        var newSmoothWeight:Float = 0
+        if data.count < daysToSmooth {
+            var total:Float = 0
+            
+            for model in data{
+                total += model.weight
+            }
+            newSmoothWeight = total/Float(data.count)
+        }
+        else{
+            var total:Float = 0
+            
+            for model in data[data.count-1-daysToSmooth..<data.count-1]{
+                total += model.weight
+            }
+            newSmoothWeight = total/Float(data.count)
+        }
+        //smoothData.append(Model(id:data.last.id, data:data.last.Date, weight: newSmoothWeight))
     }
     
     func setGoal(newGoal: Float){

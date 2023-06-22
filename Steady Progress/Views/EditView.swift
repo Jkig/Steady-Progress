@@ -23,6 +23,6 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditView(data: [Model(date: 1, weight: 140), Model(date: 2, weight: 150)])
+        EditView(data: [Model(id: 1, date: 1, weight: 140), Model(id: 2, date: 2, weight: 150)])
     }
 }
