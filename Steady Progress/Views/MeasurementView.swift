@@ -9,12 +9,13 @@ import SwiftUI
 
 struct MeasurementView: View {
     let MWeight: Float
-    let MDate: Int // change to my own type
+    let MDate: Date // change to my own type
+    
     
     
     var body: some View {
         HStack{
-            Text("Date: \(MDate)")
+            Text(MDate, style: .date)
             Spacer()
             Text(String(format: "%.1f", MWeight))
             Spacer()
@@ -35,6 +36,6 @@ struct MeasurementView: View {
 struct MeasurementView_Previews: PreviewProvider {
     static var previews: some View {
         // with sample data
-        MeasurementView(MWeight: 180, MDate: 1)
+        MeasurementView(MWeight: 180, MDate: Date())
     }
 }

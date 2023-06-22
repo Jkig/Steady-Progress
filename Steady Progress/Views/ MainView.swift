@@ -32,6 +32,26 @@ struct MainView: View {
     @StateObject var settingsViewModel = SettingsViewModel()
     @State private var text = ""
     
+    func keyBoardClose(){
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil
+        );
+    }
+     
+    func keyBoardCloseWrite(){
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil
+        );
+        viewModel.addMeasurement(weightSTR: text)
+        text = ""
+    }
+    
     
     var body: some View {
         NavigationView{
@@ -86,41 +106,31 @@ struct MainView: View {
                     // Display Toolbar View
                     HStack(alignment: .center) {
                         Button {
-                            // Dismiss keyboard
-                            UIApplication.shared.sendAction(
-                                #selector(UIResponder.resignFirstResponder),
-                                to: nil,
-                                from: nil,
-                                for: nil
-                            )
+                            keyBoardClose()
                         } label: {
-                                Text("Cancel")
+                            Text("Cancel")
                         }
                         .padding(8)
                         .background(Color.red)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         
+                        
                         Text(text)
                             .padding()
                         Spacer()
                         
-                        
                         Button {
-                            // Dismiss keyboard
-                            UIApplication.shared.sendAction(
-                                #selector(UIResponder.resignFirstResponder),
-                                to: nil,
-                                from: nil,
-                                for: nil
-                            )
+                            //viewModel.addMeasurement(weightSTR: text)
+                            keyBoardCloseWrite()
                         } label: {
-                                Text("Add")
+                            Text("Add")
                         }
                         .padding(8)
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
+                        
                     }
                     .padding()
                     .frame(width: UIScreen.main.bounds.width, height: 35)
@@ -138,6 +148,13 @@ struct MainView: View {
             .padding()
             .onReceive(keyboardPublisher) { presented in
                 viewModel.keyboardIsPresented = presented
+                text = ""
+            }
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Too soon"),
+                      message: Text("Results take time, please wait until tomorrow to measure again :)"),
+                      dismissButton: .default(Text("OK")))
+                
             }
         }
     }
