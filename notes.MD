@@ -1,10 +1,3 @@
-# What's the point?
-* People likely work hard, see the scale, and based on a basically random fluctuation, become discouraged and quit their diet
-* People often gain weight, but very slowly, if you gain 5 lbs over 6 months its hard to tell anything happened, as weight can fluctuate that much based on a few big meals.
-* When I gained 10 lbs over 1.5 years, there was no point where "wow everything has changed", but this leads to a cycle where diets are neccacary, maybe just light diets periodically, but still probably less healthy long run.
-
-
-
 # Current working smoothing functions:
 * For now using a 14 day moving average, with recent SMA for "true weight"
 * For now using a 10 day moving average, projecting forward change over 10 day ago SMA and current by 5 days for "true weight"

@@ -9,6 +9,7 @@ import Foundation
 
 
 class MainViewModel: ObservableObject {
+    // try importing settings here, get goal..
     @Published var keyboardIsPresented: Bool = false
     @Published var minVal:Float = 500
     @Published var maxVal:Float = 0

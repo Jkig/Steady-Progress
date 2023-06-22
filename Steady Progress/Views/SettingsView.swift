@@ -8,16 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var keyboardIsPresented: Bool = false
-    
-    @State private var isKilograms = false
-    @State private var showGoal = true
-    @State private var showGoalLine = true
-    @State private var showSmooth = true
-    @State private var selection = "Loose weight"
-    let direction = ["Loose weight", "Maintain weight", "Gain weight"]
-    @State private var goalWeight: Float = 0
-    
+    @StateObject var viewModel = SettingsViewModel()
+    @StateObject var mainViewModel = MainViewModel()
     
     var body: some View {
         NavigationView {
@@ -26,7 +18,7 @@ struct SettingsView: View {
                     VStack {
                         HStack {
                             Spacer()
-                            Toggle(isOn: $isKilograms) {
+                            Toggle(isOn: $viewModel.isKilograms) {
                                 Text("Use KG")
                             }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
@@ -35,7 +27,7 @@ struct SettingsView: View {
                         .padding()
                         HStack {
                             Spacer()
-                            Toggle(isOn: $showGoal) {
+                            Toggle(isOn: $viewModel.showGoal) {
                                 Text("Show Goal")
                             }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
@@ -44,7 +36,7 @@ struct SettingsView: View {
                         .padding()
                         HStack {
                             Spacer()
-                            Toggle(isOn: $showGoalLine) {
+                            Toggle(isOn: $viewModel.showGoalLine) {
                                 Text("Show Goal Line")
                             }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
@@ -53,7 +45,7 @@ struct SettingsView: View {
                         .padding()
                         HStack {
                             Spacer()
-                            Toggle(isOn: $showSmooth) {
+                            Toggle(isOn: $viewModel.showSmooth) {
                                 Text("Show Smoothed Measurements:")
                             }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
@@ -64,8 +56,8 @@ struct SettingsView: View {
                             Spacer()
                             Text("Goal Direction")
                             Spacer()
-                            Picker("Select a paint color", selection: $selection) {
-                                ForEach(direction, id: \.self) {
+                            Picker("Select a paint color", selection: $viewModel.selection) {
+                                ForEach(viewModel.direction, id: \.self) {
                                     Text($0)
                                 }
                             }
@@ -79,7 +71,7 @@ struct SettingsView: View {
                                 .padding([.trailing])
                             Spacer()
                                 .padding([.trailing])
-                            TextField("Enter Value", value: $goalWeight, format: .number)
+                            TextField("Enter Value", value: $mainViewModel.goal, format: .number)
                                 .keyboardType(.decimalPad)
                                 .padding([.leading, .trailing])
                         }
@@ -104,7 +96,7 @@ struct SettingsView: View {
                         }
                         Spacer()
                     }}
-                    if keyboardIsPresented {
+                if mainViewModel.keyboardIsPresented {
                         // Display Toolbar View
                         HStack(alignment: .center) {
                             Spacer()
@@ -133,7 +125,7 @@ struct SettingsView: View {
             }
             .padding()
             .onReceive(keyboardPublisher) { presented in
-                self.keyboardIsPresented = presented
+                mainViewModel.keyboardIsPresented = presented
             }
         
     }
