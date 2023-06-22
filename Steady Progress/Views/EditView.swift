@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditView: View {
-    let data: [model]
+    let data: [Model]
     var body: some View {
         ScrollView{
             VStack (spacing: 20) {
@@ -23,6 +23,6 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditView(data: [model(date: 1, weight: 140),model(date: 2, weight: 150)])
+        EditView(data: [Model(date: 1, weight: 140), Model(date: 2, weight: 150)])
     }
 }

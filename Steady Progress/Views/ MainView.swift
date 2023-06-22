@@ -27,7 +27,7 @@ var keyboardPublisher: AnyPublisher<Bool, Never> {
 }}
 
 
-struct model: Identifiable {
+struct Model: Identifiable {
     var id: UUID // I think change this to simly the index it is at, should be fine onece dates are accrate
     var date: Int
     var weight: Float
@@ -41,6 +41,7 @@ struct model: Identifiable {
 
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
+    @StateObject var settingsViewModel = SettingsViewModel()
     @State private var text = ""
     
     
@@ -48,15 +49,16 @@ struct MainView: View {
         NavigationView{
             VStack {
                 GroupBox{
-                    Chart (viewModel.smoothData) {
+                    Chart (settingsViewModel.showSmooth ? viewModel.smoothData : viewModel.data) {
                         LineMark(
                             x: .value("Month", $0.date),
                             y: .value("Weight", $0.weight)
                         )
                         // maybe add option to show unsmoothed data
-                        
-                        RuleMark(y: .value("goal", viewModel.goal))
-                            .foregroundStyle(.red)
+                        if settingsViewModel.showGoal {
+                            RuleMark(y: .value("goal", viewModel.goal))
+                                .foregroundStyle(.red)
+                        }
                             
                     }
                     .frame(height:400)
@@ -76,7 +78,7 @@ struct MainView: View {
                             .font(.system(size:35))
                         
                         Text(String(format: "%.1f", viewModel.smoothData.last!.weight-viewModel.startWeight))
-                            .foregroundColor(.green)
+                            .foregroundColor(((settingsViewModel.selection == "Loose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) <= 0) || ((settingsViewModel.selection == "Loose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) >= 0))) ? .green : .black)
                             .font(.system(size:20))
                             .offset(y: 5)
                         

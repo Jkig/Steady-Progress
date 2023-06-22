@@ -16,6 +16,7 @@ struct SettingsView: View {
             VStack{
                 ScrollView {
                     VStack {
+                        /*
                         HStack {
                             Spacer()
                             Toggle(isOn: $viewModel.isKilograms) {
@@ -25,6 +26,7 @@ struct SettingsView: View {
                             Spacer()
                         }
                         .padding()
+                        */
                         HStack {
                             Spacer()
                             Toggle(isOn: $viewModel.showGoal) {
@@ -34,6 +36,8 @@ struct SettingsView: View {
                             Spacer()
                         }
                         .padding()
+                        /*
+                        // goal for weight change line
                         HStack {
                             Spacer()
                             Toggle(isOn: $viewModel.showGoalLine) {
@@ -43,10 +47,21 @@ struct SettingsView: View {
                             Spacer()
                         }
                         .padding()
+                         */
+                        HStack {
+                            Spacer()
+                            Toggle(isOn: $viewModel.showBMI) {
+                                Text("BMI")
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+                            Spacer()
+                        }
+                        .padding()
+                        
                         HStack {
                             Spacer()
                             Toggle(isOn: $viewModel.showSmooth) {
-                                Text("Show Smoothed Measurements:")
+                                Text("Smoothed Measurements:")
                             }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
                             Spacer()
@@ -88,11 +103,17 @@ struct SettingsView: View {
                             .cornerRadius(10)
                             
                             HStack{
+                                
                                 Text("Age: 50")
-                                Text("BMI: 50")
+                                
                                 Text("Height: 50")
+                                
+                                if viewModel.showBMI{
+                                    Text("BMI: \(String(format: "%.1f", mainViewModel.data.last!.weight/pow(Float(viewModel.heightFeet * 12 + viewModel.heightInches),2)*703))")
+                                }
                             }
-                            Text("Passive caloric Burn: 2000")
+                            // Could say what the BMI means, but probably not really helpful, may pull it all as well as the personal data  entirely
+                            // Text("Passive caloric Burn: 2000")
                         }
                         Spacer()
                     }}
