@@ -28,7 +28,7 @@ var keyboardPublisher: AnyPublisher<Bool, Never> {
 
 
 struct model: Identifiable {
-    var id: UUID
+    var id: UUID // I think change this to simly the index it is at, should be fine onece dates are accrate
     var date: Int
     var weight: Float
     
@@ -43,13 +43,6 @@ struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @State private var text = ""
     
-
-    var minVal = false ? 150 : min(150, 175)
-    var maxVal = 200
-    var trueWeight = 162.2
-    
-    var goal = 160
-    
     
     var body: some View {
         NavigationView{
@@ -62,33 +55,40 @@ struct MainView: View {
                         )
                         // maybe add option to show unsmoothed data
                         
-                        RuleMark(y: .value("goal", goal))
+                        RuleMark(y: .value("goal", viewModel.goal))
                             .foregroundStyle(.red)
                             
                     }
                     .frame(height:400)
-                    .chartYScale(domain: minVal...maxVal, type: nil)
+                    .chartYScale(domain: Int(viewModel.minVal)...Int(viewModel.maxVal), type: nil)
                 }
                 .padding([.bottom])
                 
-                HStack{
-                    Text("Estimated True Weight")
-                        .font(.system(size:12))
-                        .offset(y: 7)
-                    
-                    Spacer()
-                    
-                    Text(String(format: "%.1f", trueWeight))
-                        .font(.system(size:35))
-                    
-                    Text("-25lbs")
-                        .foregroundColor(.green)
-                        .font(.system(size:20))
-                        .offset(y: 5)
-                    
+                if viewModel.data.count > viewModel.daysToSmooth{
+                    HStack{
+                        Text("Estimated True Weight")
+                            .font(.system(size:12))
+                            .offset(y: 7)
+                        
+                        Spacer()
+                        
+                        Text(String(format: "%.1f", viewModel.smoothData.last!.weight))
+                            .font(.system(size:35))
+                        
+                        Text(String(format: "%.1f", viewModel.smoothData.last!.weight-viewModel.startWeight))
+                            .foregroundColor(.green)
+                            .font(.system(size:20))
+                            .offset(y: 5)
+                        
+                    }
+                    .padding([.leading, .trailing])
                 }
-                .padding([.leading, .trailing])
-                
+                else{
+                    Text("Estimated True Weight and total change are calculated when you hit \(viewModel.daysToSmooth) measurements!")
+                        .font(.system(size:20))
+                        .offset(y: 7)
+                        .padding()
+                }
                 
                 Spacer()
                 
