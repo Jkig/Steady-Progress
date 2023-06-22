@@ -55,16 +55,16 @@ struct MainView: View {
         NavigationView{
             VStack {
                 GroupBox{
-                    Chart(viewModel.data) {
+                    Chart (viewModel.smoothData) {
                         LineMark(
                             x: .value("Month", $0.date),
                             y: .value("Weight", $0.weight)
                         )
-                        // graph smoothed data
-                        
+                        // maybe add option to show unsmoothed data
                         
                         RuleMark(y: .value("goal", goal))
                             .foregroundStyle(.red)
+                            
                     }
                     .frame(height:400)
                     .chartYScale(domain: minVal...maxVal, type: nil)
@@ -72,15 +72,23 @@ struct MainView: View {
                 .padding([.bottom])
                 
                 HStack{
+                    Text("Estimated True Weight")
+                        .font(.system(size:12))
+                        .offset(y: 7)
+                    
                     Spacer()
                     
                     Text(String(format: "%.1f", trueWeight))
                         .font(.system(size:35))
                     
-                    Text("Estimated True Weight")
-                        .font(.system(size:12))
-                        .offset(y: 7)
+                    Text("-25lbs")
+                        .foregroundColor(.green)
+                        .font(.system(size:20))
+                        .offset(y: 5)
+                    
                 }
+                .padding([.leading, .trailing])
+                
                 
                 Spacer()
                 

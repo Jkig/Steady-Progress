@@ -29,25 +29,19 @@ class MainViewModel: ObservableObject {
         var incomplete:Float = 0
         for i in 0..<min(daysToSmooth-1, data.count){
             incomplete += data[i].weight
-            let intermediate = model(date:data[i].date, weight: incomplete/Float(i+1))
-            smoothData.append(intermediate)
+            smoothData.append(model(date:data[i].date, weight: incomplete/Float(i+1)))
         }
         if data.count > daysToSmooth-1 {
             var runSum: Float = 0
             for i in 0..<daysToSmooth{
                 runSum += data[i].weight
             }
-            let intermediate = model(date:data[daysToSmooth-1].date, weight: runSum/Float(daysToSmooth))
-            smoothData.append(intermediate)
+            smoothData.append(model(date:data[daysToSmooth-1].date, weight: runSum/Float(daysToSmooth)))
             for i in daysToSmooth..<data.count{
                 runSum += data[i].weight
                 runSum -= data[i-(daysToSmooth)].weight
-                let intermediate = model(date:data[i].date, weight: runSum/Float(daysToSmooth))
-                smoothData.append(intermediate)
+                smoothData.append(model(date:data[i].date, weight: runSum/Float(daysToSmooth)))
             }
-        }
-        for i in 0..<smoothData.count {
-            print(smoothData[i].date, smoothData[i].weight)
         }
     }
 }

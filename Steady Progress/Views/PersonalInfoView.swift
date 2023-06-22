@@ -8,8 +8,42 @@
 import SwiftUI
 
 struct PersonalInfoView: View {
+    @State private var heightFeet:Int = 0
+    @State private var heightInch:Int = 0
+    @State private var age:Int = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            HStack{
+                Text("Select height feet")
+                Picker(selection: $heightFeet, label: Text("Select a number")) {
+                    ForEach(0..<12) { number in
+                        Text("\(number)")
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+            }
+            HStack{
+                Text("Select height inches")
+                Picker(selection: $heightInch, label: Text("Select a number")) {
+                    ForEach(0..<12) { number in
+                        Text("\(number)")
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+            }
+            HStack{
+                Text("Select Age")
+                Picker(selection: $age, label: Text("Select a number")) {
+                    ForEach(0..<100) { number in
+                        Text("\(number)")
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+            }
+
+        }
+        .padding()
     }
 }
 
