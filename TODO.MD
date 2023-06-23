@@ -1,10 +1,13 @@
 # Current todo (final big test data and then set up for read data):
 * have zo, ben, and liv see if it looks good, then decide on smoothing
 
-* store data on device
-* Reload Chart when stuff that effects it changes (toggle smoothed data, toggle show Goal and what the goal is itself
-* edit old data
-* Reload edit dataprobably edit old data too)
+# store data on device
+* data and smoothdata will probably be tougher, for now I'll get it to work and fix preformance later
+* I think the strategy is coding/decoding, 
+
+* Reload Chart when stuff that effects it changes toggle smoothed data, toggle show Goal and what the goal is itself
+* edit old data (I think reload fail is causing problem)
+* Reload edit dataprobably edit old data too
 
 
 # From the above things, the MVP is ready. Release ASAP and get users trying it

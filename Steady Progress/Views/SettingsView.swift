@@ -39,6 +39,9 @@ struct SettingsView: View {
                             Toggle(isOn: $viewModel.showGoal) {
                                 Text("Show Goal")
                             }
+                            .onChange(of: viewModel.showGoal) { _ in
+                                viewModel.storeSettings()
+                            }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
                         }
                         .padding()
@@ -67,6 +70,9 @@ struct SettingsView: View {
                             Toggle(isOn: $viewModel.showSmooth) {
                                 Text("Smoothed Measurements:")
                             }
+                            .onChange(of: viewModel.showSmooth) { _ in
+                                viewModel.storeSettings()
+                            }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
                         }
                         .padding()
@@ -77,6 +83,9 @@ struct SettingsView: View {
                                 ForEach(viewModel.direction, id: \.self) {
                                     Text($0)
                                 }
+                            }
+                            .onChange(of: viewModel.selection) { _ in
+                                viewModel.storeSettings()
                             }
                             .pickerStyle(.menu)
                         }
