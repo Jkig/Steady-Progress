@@ -10,18 +10,21 @@ import Charts
 
 
 struct ContentView: View {
+    @StateObject var viewModel = KeyboardViewModel()
     @State private var selectedTab = 0
     @State var goal: Float = 0
     
     var body: some View {
         TabView (selection: $selectedTab) {
             MainView()
+                .environmentObject(viewModel)
                 .tabItem {
                     Image(systemName: "scalemass")
                 }
                 .tag(0)
 
             SettingsView()
+                .environmentObject(viewModel)
                 .tabItem {
                     Image(systemName: "gear")
                 }

@@ -31,7 +31,7 @@ struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @StateObject var settingsViewModel = SettingsViewModel()
     
-    //@State var keyboardIsPresented:Bool = false
+    @EnvironmentObject var environmentView: KeyboardViewModel
     @State private var text = ""
     
     func keyBoardClose(){
@@ -51,6 +51,7 @@ struct MainView: View {
             for: nil
         );
         viewModel.addMeasurement(weightSTR: text)
+        environmentView.keyboardIsPresented = false
         text = ""
     }
     
@@ -104,7 +105,7 @@ struct MainView: View {
                 
                 Spacer()
                 
-                if viewModel.keyboardIsPresented {
+                if environmentView.keyboardIsPresented {
                     // Display Toolbar View
                     HStack(alignment: .center) {
                         Button {
@@ -149,7 +150,7 @@ struct MainView: View {
             }
             .padding()
             .onReceive(keyboardPublisher) { presented in
-                viewModel.keyboardIsPresented = presented
+                environmentView.keyboardIsPresented = presented
                 text = ""
             }
             .alert(isPresented: $viewModel.showAlert) {

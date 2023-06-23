@@ -23,7 +23,8 @@ struct Model: Identifiable {
 
 
 class MainViewModel: ObservableObject {
-    @Published var keyboardIsPresented: Bool = false
+    @StateObject var keyView = KeyboardViewModel()
+    // @Published var keyboardIsPresented: Bool = false
     @Published var showAlert:Bool = false
     @Published var daysToSmooth:Int = 10
     
@@ -174,19 +175,19 @@ class MainViewModel: ObservableObject {
     
     func addMeasurement(weightSTR:String) {
         if weightSTR == ""{
-            keyboardIsPresented = false
+            keyView.keyboardIsPresented = false
             return
         }
         let weight:Double = Double(weightSTR)!
-        /*
+        
         if !data.isEmpty{
             if Date() < data.last!.date + (10*60*60) {
                 showAlert = true
-                keyboardIsPresented = false
+                keyView.keyboardIsPresented = false
                 return
             }
         }
-         */
+         
         
         minVal = min(weight*0.95, minVal)
         maxVal = max(weight*1.05+1, maxVal)
@@ -216,8 +217,8 @@ class MainViewModel: ObservableObject {
         if startWeight == 0 {
             startWeight = newSmoothWeight
         }
-        keyboardIsPresented = false
         
+        // keyView.keyboardIsPresented = false
         
         // TODO: push (new) data, and smoothdata to storage
         UserDefaults.standard.set(minVal, forKey: "minVal")
@@ -231,7 +232,7 @@ class MainViewModel: ObservableObject {
         minVal = min(goal*0.95, minVal)
         maxVal = max(goal*1.05+1, maxVal)
         
-        keyboardIsPresented = false
+        // keyView.keyboardIsPresented = false
         
         UserDefaults.standard.set(goal, forKey: "goal")
         UserDefaults.standard.set(minVal, forKey: "minVal")

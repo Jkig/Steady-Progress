@@ -11,6 +11,7 @@ struct SettingsView: View {
     @StateObject var mainViewModel = MainViewModel()
     @StateObject var viewModel = SettingsViewModel()
     // @State var keyboardIsPresented:Bool = false
+    @EnvironmentObject var environmentView: KeyboardViewModel
     
     func setGoalWeight() {
         UIApplication.shared.sendAction(
@@ -20,6 +21,7 @@ struct SettingsView: View {
             for: nil
         );
         mainViewModel.setGoal(newGoal: mainViewModel.goal)
+        environmentView.keyboardIsPresented = false
     }
     
     var body: some View {
@@ -132,13 +134,12 @@ struct SettingsView: View {
                          */
                         
                     }}
-                if mainViewModel.keyboardIsPresented {
+                if environmentView.keyboardIsPresented {
                         // Display Toolbar View
                         HStack(alignment: .center) {
                             Spacer()
                             Button {
                                 setGoalWeight()
-                                // keyboardIsPresented = false
                             } label: {
                                 Text("Set")
                             }
@@ -154,7 +155,7 @@ struct SettingsView: View {
             }
             .padding()
             .onReceive(keyboardPublisher) { presented in
-                mainViewModel.keyboardIsPresented = presented
+                environmentView.keyboardIsPresented = presented
             }
     }
 }
