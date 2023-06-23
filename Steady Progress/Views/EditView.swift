@@ -9,11 +9,13 @@ import SwiftUI
 
 struct EditView: View {
     let data: [Model]
+    @StateObject var viewModel = MainViewModel()
+    
     var body: some View {
         ScrollView{
             VStack (spacing: 20) {
                 ForEach(data) { model in
-                        MeasurementView(MWeight: model.weight, MDate: model.date)
+                        MeasurementView(measurement: model)
                     }
                 
             }

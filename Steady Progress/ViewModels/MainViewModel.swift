@@ -22,30 +22,37 @@ struct Model: Identifiable {
 
 
 class MainViewModel: ObservableObject {
-    // try importing settings here, get goal..
     @Published var keyboardIsPresented: Bool = false
+    @Published var showAlert:Bool = false
+    @Published var daysToSmooth:Int = 10
+    
+    @Published var goal:Float = 160
     @Published var minVal:Float = 500
     @Published var maxVal:Float = 0
-    @Published var goal:Float = 160
-    @Published var daysToSmooth:Int = 10 // well tested and can change arbitrarily
     @Published var startWeight:Float = 0
-    @Published var showAlert:Bool = false
-    
     @Published var data: [Model] = []
     @Published var smoothData: [Model] = []
     
-    // initailize smooth data as copy of data after it is built, then build it with a for loop:
+    
     init() {
         /**/
-        // setting up testing data:
-        // commenting all this out and it works as normal
+        // Start testing data:
         let weights: [Float] = [186.2, 185.8, 186.4, 186.2, 184.8, 186.2, 186.7, 186.6, 185.1, 184.3, 184.9, 183.3, 185.9, 184.7, 182.5, 184.6, 183.2, 182.7, 182.8, 183.5, 185.7, 182.8, 182.5, 183.0, 184.3, 185.4, 180.2, 179.2, 183.9, 184.6, 179.4, 180.8, 182.6, 178.6, 181.3, 179.2, 183.9, 179.8, 182.9, 180.5, 183.2, 179.8, 180.5, 182.7, 179.9, 179.9, 180.7, 179.5, 180.0, 180.1, 180.3, 181.5, 180.3, 178.9, 177.5, 181.8, 181.0, 176.7, 176.1, 178.7, 181.8, 179.6, 178.1, 181.5, 177.6, 180.3, 177.7, 175.5, 179.8, 178.4, 180.7, 179.7, 179.9, 180.5, 180.1, 175.7, 178.6, 175.6, 178.2, 176.0, 177.8, 175.5, 176.7, 173.8, 178.0, 176.7, 176.2, 174.6, 176.9, 176.6, 173.4, 173.0, 175.0, 176.3, 176.8, 173.8, 178.0, 174.8, 172.5, 172.7]
-        
         data = weights.enumerated().map { index, weight in
             Model(id: index, date: Date().addingTimeInterval(Double(index)*(24*60 * 60)) - (100*24*60*60), weight: weight)
         }
-        // end testing data setup
-        /**/
+        /*
+         // quick test for how holes in data are treadted (perfectly!) :)
+         var intermediateData:[Model] = []
+         intermediateData.append(contentsOf: data[0..<30])
+         intermediateData.append(contentsOf: data[50..<data.count])
+         
+         for i in 0..<intermediateData.count{
+             intermediateData[i].id = i
+         }
+         
+         data = intermediate
+         */
         
         var incomplete:Float = 0
         for i in 0..<min(daysToSmooth-1, data.count){
@@ -86,12 +93,8 @@ class MainViewModel: ObservableObject {
                 }
             }
         }
-        // now alter min/max value
         minVal = min(goal*0.95, minVal*0.95)
         maxVal = max(goal*1.05+1, (maxVal*1.05)+1)
-        
-        
-        // print through data
         /*
         for i in 0..<data.count{
             print(i)
@@ -99,14 +102,81 @@ class MainViewModel: ObservableObject {
             print(smoothData[i].id, smoothData[i].date, smoothData[i].weight)
         }
          */
-         
+        /**/
+        // end setup for testing
+        // TODO: pull from storage
+        
     }
     
     
-    func deleteOld() {
-        // TODO: we delete the old one, by copying the data up to a point, skipping, and etc, then being clever to copy only the right ones
+    func deleteOld(index:Int) {
         // for now, I'll probably just recalculate the smoothed, but later I should save the time
         // if deleting the largest or smallest just recalculate?
+        var intermediateData: [Model] = []
+        
+        if index == 0{
+            intermediateData.append(contentsOf: data[1..<data.count])
+            
+        } else if index == data.count{
+            intermediateData.append(contentsOf: data[0..<data.count-1])
+            
+        } else{
+            intermediateData.append(contentsOf: data[0..<index-1])
+            intermediateData.append(contentsOf: data[index+1..<data.count])
+        }
+        for i in 0..<intermediateData.count{
+            intermediateData[i].id = i
+        }
+        
+        data = intermediateData
+        smoothData = []
+        // now build smooth from scratch
+        var incomplete:Float = 0
+        for i in 0..<min(daysToSmooth-1, data.count){
+            incomplete += data[i].weight
+            smoothData.append(Model(id: i, date:data[i].date, weight: incomplete/Float(i+1)))
+            
+            if data[i].weight > maxVal {
+                    maxVal = data[i].weight
+            }
+            if data[i].weight < minVal {
+                    minVal = data[i].weight
+            }
+        }
+        if data.count > daysToSmooth-1 {
+            startWeight = data[daysToSmooth-1].weight
+            
+            var runSum: Float = 0
+            for i in 0..<daysToSmooth{
+                runSum += data[i].weight
+            }
+            if data[daysToSmooth-1].weight > maxVal {
+                    maxVal = data[daysToSmooth-1].weight
+            }
+            if data[daysToSmooth-1].weight < minVal {
+                    minVal = data[daysToSmooth-1].weight
+            }
+            smoothData.append(Model(id: daysToSmooth-1, date:data[daysToSmooth-1].date, weight: runSum/Float(daysToSmooth)))
+            for i in daysToSmooth..<data.count{
+                runSum += data[i].weight
+                runSum -= data[i-(daysToSmooth)].weight
+                smoothData.append(Model(id: i, date:data[i].date, weight: runSum/Float(daysToSmooth)))
+                
+                if data[i].weight > maxVal {
+                        maxVal = data[i].weight
+                }
+                if data[i].weight < minVal {
+                        minVal = data[i].weight
+                }
+            }
+        }
+        
+        for i in 0..<data.count{
+            print(data[i].id, data[i].weight)
+            print(smoothData[i].id, smoothData[i].weight)
+        }
+        // TODO: push data, smoothdata, max/min, to storage
+        // push startweight to storage
     }
     
     
@@ -154,6 +224,11 @@ class MainViewModel: ObservableObject {
             startWeight = newSmoothWeight
         }
         keyboardIsPresented = false
+        
+        
+        // TODO: push (new) data and smoothdata to storage
+        // push updated min and max values to storage
+        // push startweight to storage
     }
     
     func setGoal(newGoal: Float){
@@ -162,6 +237,8 @@ class MainViewModel: ObservableObject {
         maxVal = max(goal*1.05+1, maxVal)
         
         keyboardIsPresented = false
+        
+        // TODO: push goal and min/max to storage
     }
 }
 

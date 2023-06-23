@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct MeasurementView: View {
-    let MWeight: Float
-    let MDate: Date // change to my own type
-    
+    let measurement:Model
+    @StateObject var viewModel = MainViewModel()
     
     
     var body: some View {
         HStack{
-            Text(MDate, style: .date)
+            Text(measurement.date, style: .date)
             Spacer()
-            Text(String(format: "%.1f", MWeight))
+            Text(String(format: "%.1f", measurement.weight))
             Spacer()
             Button(action: {
-                // delete only, edit probably encurages bad behavior for users lol
+                viewModel.deleteOld(index: measurement.id)
             }) {
                 Text("Delete")
                     .padding()
@@ -36,6 +35,6 @@ struct MeasurementView: View {
 struct MeasurementView_Previews: PreviewProvider {
     static var previews: some View {
         // with sample data
-        MeasurementView(MWeight: 180, MDate: Date())
+        MeasurementView(measurement: Model(id:1, date: Date(), weight: 180))
     }
 }
