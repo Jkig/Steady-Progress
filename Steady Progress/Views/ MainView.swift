@@ -30,6 +30,8 @@ var keyboardPublisher: AnyPublisher<Bool, Never> {
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @StateObject var settingsViewModel = SettingsViewModel()
+    
+    //@State var keyboardIsPresented:Bool = false
     @State private var text = ""
     
     func keyBoardClose(){
@@ -54,7 +56,7 @@ struct MainView: View {
     
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack {
                 GroupBox{
                     Chart (settingsViewModel.showSmooth ? viewModel.smoothData : viewModel.data) {
@@ -165,3 +167,11 @@ struct MainView_Previews: PreviewProvider {
         MainView()
     }
 }
+
+
+
+
+
+
+
+

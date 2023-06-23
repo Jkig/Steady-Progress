@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject var viewModel = SettingsViewModel()
     @StateObject var mainViewModel = MainViewModel()
+    @StateObject var viewModel = SettingsViewModel()
+    // @State var keyboardIsPresented:Bool = false
     
     func setGoalWeight() {
         UIApplication.shared.sendAction(
@@ -137,6 +138,7 @@ struct SettingsView: View {
                             Spacer()
                             Button {
                                 setGoalWeight()
+                                // keyboardIsPresented = false
                             } label: {
                                 Text("Set")
                             }
@@ -149,14 +151,11 @@ struct SettingsView: View {
                         .frame(width: UIScreen.main.bounds.width, height: 35)
                     }
                 }
-                
-            
             }
             .padding()
             .onReceive(keyboardPublisher) { presented in
                 mainViewModel.keyboardIsPresented = presented
             }
-        
     }
 }
 

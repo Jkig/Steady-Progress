@@ -8,6 +8,7 @@
 * Reload Chart when stuff that effects it changes toggle smoothed data, toggle show Goal and what the goal is itself
 * edit old data (I think reload fail is causing problem)
 * Reload edit dataprobably edit old data too
+* reload for keyboard stuff too when i edited goal ()
 
 
 # From the above things, the MVP is ready. Release ASAP and get users trying it

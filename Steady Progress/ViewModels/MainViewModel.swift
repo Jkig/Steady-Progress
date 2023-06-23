@@ -29,8 +29,8 @@ class MainViewModel: ObservableObject {
     
     
     @AppStorage("goal") var storedGoal:Double = 160
-    @AppStorage("minVal") var storedMinVal:Double = 0
-    @AppStorage("maxVal") var storedMaxVal:Double = 300
+    @AppStorage("minVal") var storedMinVal:Double = 500
+    @AppStorage("maxVal") var storedMaxVal:Double = 500
     @AppStorage("startWeight") var storedStartWeight:Double = 0
     
     
@@ -42,19 +42,29 @@ class MainViewModel: ObservableObject {
     @Published var smoothData: [Model] = []
     
     
-    
     init() {
-        // TODO: pull from storage
         goal = UserDefaults.standard.double(forKey: "goal")
         minVal = UserDefaults.standard.double(forKey: "minVal")
         maxVal = UserDefaults.standard.double(forKey: "maxVal")
         startWeight = UserDefaults.standard.double(forKey: "startWeight")
+        // TODO: pull data and smooth from storage
         
-        // for data and smoothdata, best may be storing an array of weights and an array of Dates for data in userdefaults,
-        //      and rebuild data and smoothData every time the app loads
-        
-        /**/
-        // Start testing data:
+        setupTesting()
+    }
+    
+    func resetStored() {
+        UserDefaults.standard.set(170, forKey: "minVal")
+        UserDefaults.standard.set(185, forKey: "maxVal")
+        UserDefaults.standard.set(startWeight, forKey: "startweight")
+    }
+    
+    
+    func setupTesting( ){
+        resetStored()
+        startTestData()
+    }
+    
+    func startTestData() {
         let weights: [Double] = [186.2, 185.8, 186.4, 186.2, 184.8, 186.2, 186.7, 186.6, 185.1, 184.3, 184.9, 183.3, 185.9, 184.7, 182.5, 184.6, 183.2, 182.7, 182.8, 183.5, 185.7, 182.8, 182.5, 183.0, 184.3, 185.4, 180.2, 179.2, 183.9, 184.6, 179.4, 180.8, 182.6, 178.6, 181.3, 179.2, 183.9, 179.8, 182.9, 180.5, 183.2, 179.8, 180.5, 182.7, 179.9, 179.9, 180.7, 179.5, 180.0, 180.1, 180.3, 181.5, 180.3, 178.9, 177.5, 181.8, 181.0, 176.7, 176.1, 178.7, 181.8, 179.6, 178.1, 181.5, 177.6, 180.3, 177.7, 175.5, 179.8, 178.4, 180.7, 179.7, 179.9, 180.5, 180.1, 175.7, 178.6, 175.6, 178.2, 176.0, 177.8, 175.5, 176.7, 173.8, 178.0, 176.7, 176.2, 174.6, 176.9, 176.6, 173.4, 173.0, 175.0, 176.3, 176.8, 173.8, 178.0, 174.8, 172.5, 172.7]
         data = weights.enumerated().map { index, weight in
             Model(id: index, date: Date().addingTimeInterval(Double(index)*(24*60 * 60)) - (100*24*60*60), weight: weight)
@@ -71,17 +81,23 @@ class MainViewModel: ObservableObject {
          
          data = intermediate
          */
+        setUpData()
+    }
+    
+    func setUpData(){
+        var minValSoFar:Double = 1000
+        var maxValSoFar:Double = 0
         
         var incomplete:Double = 0
         for i in 0..<min(daysToSmooth-1, data.count){
             incomplete += data[i].weight
             smoothData.append(Model(id: i, date:data[i].date, weight: incomplete/Double(i+1)))
             
-            if data[i].weight > maxVal {
-                    maxVal = data[i].weight
+            if data[i].weight > maxValSoFar {
+                    maxValSoFar = data[i].weight
             }
-            if data[i].weight < minVal {
-                    minVal = data[i].weight
+            if data[i].weight < minValSoFar {
+                    minValSoFar = data[i].weight
             }
         }
         if data.count > daysToSmooth-1 {
@@ -91,11 +107,11 @@ class MainViewModel: ObservableObject {
             for i in 0..<daysToSmooth{
                 runSum += data[i].weight
             }
-            if data[daysToSmooth-1].weight > maxVal {
-                    maxVal = data[daysToSmooth-1].weight
+            if data[daysToSmooth-1].weight > maxValSoFar {
+                    maxValSoFar = data[daysToSmooth-1].weight
             }
-            if data[daysToSmooth-1].weight < minVal {
-                    minVal = data[daysToSmooth-1].weight
+            if data[daysToSmooth-1].weight < minValSoFar {
+                    minValSoFar = data[daysToSmooth-1].weight
             }
             smoothData.append(Model(id: daysToSmooth-1, date:data[daysToSmooth-1].date, weight: runSum/Double(daysToSmooth)))
             for i in daysToSmooth..<data.count{
@@ -103,16 +119,17 @@ class MainViewModel: ObservableObject {
                 runSum -= data[i-(daysToSmooth)].weight
                 smoothData.append(Model(id: i, date:data[i].date, weight: runSum/Double(daysToSmooth)))
                 
-                if data[i].weight > maxVal {
-                        maxVal = data[i].weight
+                if data[i].weight > maxValSoFar {
+                        maxValSoFar = data[i].weight
                 }
-                if data[i].weight < minVal {
-                        minVal = data[i].weight
+                if data[i].weight < minValSoFar {
+                        minValSoFar = data[i].weight
                 }
             }
         }
-        minVal = min(goal*0.95, minVal*0.95)
-        maxVal = max(goal*1.05+1, (maxVal*1.05)+1)
+        minVal = min(goal*0.95, minValSoFar*0.95)
+        maxVal = max(goal*1.05+1, (maxValSoFar*1.05)+1)
+        
         /*
         for i in 0..<data.count{
             print(i)
@@ -120,12 +137,13 @@ class MainViewModel: ObservableObject {
             print(smoothData[i].id, smoothData[i].date, smoothData[i].weight)
         }
          */
-        /**/
-        // end setup for testing
+        
+        
         UserDefaults.standard.set(minVal, forKey: "minVal")
         UserDefaults.standard.set(maxVal, forKey: "maxVal")
         UserDefaults.standard.set(startWeight, forKey: "startweight")
-        // TODO: might as well push data and smoothData
+        // TODO: set data and smooth data
+        
     }
     
     
@@ -150,56 +168,7 @@ class MainViewModel: ObservableObject {
         
         data = intermediateData
         smoothData = []
-        // now build smooth from scratch
-        var incomplete:Double = 0
-        for i in 0..<min(daysToSmooth-1, data.count){
-            incomplete += data[i].weight
-            smoothData.append(Model(id: i, date:data[i].date, weight: incomplete/Double(i+1)))
-            
-            if data[i].weight > maxVal {
-                    maxVal = data[i].weight
-            }
-            if data[i].weight < minVal {
-                    minVal = data[i].weight
-            }
-        }
-        if data.count > daysToSmooth-1 {
-            startWeight = data[daysToSmooth-1].weight
-            
-            var runSum: Double = 0
-            for i in 0..<daysToSmooth{
-                runSum += data[i].weight
-            }
-            if data[daysToSmooth-1].weight > maxVal {
-                    maxVal = data[daysToSmooth-1].weight
-            }
-            if data[daysToSmooth-1].weight < minVal {
-                    minVal = data[daysToSmooth-1].weight
-            }
-            smoothData.append(Model(id: daysToSmooth-1, date:data[daysToSmooth-1].date, weight: runSum/Double(daysToSmooth)))
-            for i in daysToSmooth..<data.count{
-                runSum += data[i].weight
-                runSum -= data[i-(daysToSmooth)].weight
-                smoothData.append(Model(id: i, date:data[i].date, weight: runSum/Double(daysToSmooth)))
-                
-                if data[i].weight > maxVal {
-                        maxVal = data[i].weight
-                }
-                if data[i].weight < minVal {
-                        minVal = data[i].weight
-                }
-            }
-        }
-        
-        for i in 0..<data.count{
-            print(data[i].id, data[i].weight)
-            print(smoothData[i].id, smoothData[i].weight)
-        }
-        // TODO: push data, smoothdata
-        UserDefaults.standard.set(minVal, forKey: "minVal")
-        UserDefaults.standard.set(maxVal, forKey: "maxVal")
-        UserDefaults.standard.set(startWeight, forKey: "startweight")
-        
+        setUpData()
     }
     
     
@@ -209,7 +178,7 @@ class MainViewModel: ObservableObject {
             return
         }
         let weight:Double = Double(weightSTR)!
-        
+        /*
         if !data.isEmpty{
             if Date() < data.last!.date + (10*60*60) {
                 showAlert = true
@@ -217,6 +186,7 @@ class MainViewModel: ObservableObject {
                 return
             }
         }
+         */
         
         minVal = min(weight*0.95, minVal)
         maxVal = max(weight*1.05+1, maxVal)
@@ -256,6 +226,7 @@ class MainViewModel: ObservableObject {
     }
     
     func setGoal(newGoal: Double){
+        // there is a bug here for minVal and maxVal, if new goal is less extreem than old goal
         goal = newGoal
         minVal = min(goal*0.95, minVal)
         maxVal = max(goal*1.05+1, maxVal)
