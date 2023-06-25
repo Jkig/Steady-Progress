@@ -1,9 +1,4 @@
-# TODO:
-* edit old data
-* now just a little error here, it deletes 2 datapoints instead of 1
-
-
-# From the above things, the MVP is ready. Release ASAP and get users trying it
+# MVP is ready. Release ASAP and get users trying it
 * Chat with some people about how to make the posting look good
 
 

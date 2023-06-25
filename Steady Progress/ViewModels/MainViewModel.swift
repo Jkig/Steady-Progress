@@ -50,26 +50,25 @@ class MainViewModel: ObservableObject {
         startWeight = UserDefaults.standard.double(forKey: "startWeight")
         // resetStored()
         
-        print("in innit")
         if let data = UserDefaults.standard.data(forKey: "dataKey") {
-            print("trying to read raw")
             let decoder = JSONDecoder()
             if let decodedModels = try? decoder.decode([Model].self, from: data) {
-                print("reading raw")
                 self.data = decodedModels
             }
         }
         
         if let smoothData = UserDefaults.standard.data(forKey: "smoothDataKey") {
-            print("trying to read smooth")
             let decoder = JSONDecoder()
             if let decodedSmoothModels = try? decoder.decode([Model].self, from: smoothData) {
-                print("reading smooth")
                 self.smoothData = decodedSmoothModels
             }
         }
+        /*
+        if data.isEmpty {
+            setupTesting()
+        }
+         */
         
-        // setupTesting()
     }
     
     func storeData() {
@@ -197,11 +196,8 @@ class MainViewModel: ObservableObject {
         if index == 0{
             intermediateData.append(contentsOf: data[1..<data.count])
             
-        } else if index == data.count{
-            intermediateData.append(contentsOf: data[0..<data.count-1])
-            
-        } else{
-            intermediateData.append(contentsOf: data[0..<index-1])
+        } else {
+            intermediateData.append(contentsOf: data[0..<index])
             intermediateData.append(contentsOf: data[index+1..<data.count])
         }
         for i in 0..<intermediateData.count{

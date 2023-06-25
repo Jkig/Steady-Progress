@@ -95,9 +95,8 @@ struct MainView: View {
                         
                     }
                     .padding([.leading, .trailing])
-                }
-                else{
-                    Text("Estimated True Weight and total change are calculated when you hit \(viewModel.daysToSmooth) measurements!")
+                } else{
+                    Text("More data at \(viewModel.daysToSmooth) measurements!")
                         .font(.system(size:20))
                         .offset(y: 7)
                         .padding()
@@ -121,6 +120,7 @@ struct MainView: View {
                         
                         Text(text)
                             .padding()
+                        
                         Spacer()
                         
                         Button {
@@ -139,6 +139,9 @@ struct MainView: View {
                     .padding()
                     .frame(width: UIScreen.main.bounds.width, height: 35)
                 }
+                
+                Spacer()
+                    .padding()
                 
                 HStack {
                     

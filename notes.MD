@@ -1,6 +1,5 @@
 # Current working smoothing functions:
 * For now using a 14 day moving average, with recent SMA for "true weight"
-* For now using a 10 day moving average, projecting forward change over 10 day ago SMA and current by 5 days for "true weight"
 
 
 # Smoothing data:
@@ -15,6 +14,7 @@
 * thus we would need almost 100 measurements to determine the true weight by this method, which is obviously not functional
 * if they were measuring with similar water and time of the day circumstances, error probably drops to about half a pound, and 7-10 days becomes really accurate
 * now that I think about it, the day to day fluctuations are not IID, the next day is probably largely based on the day before, so maybe we have to take something like 10-14 days, maybe removing the 2 most extreme values (as after a day of eating a lot, they probably eat less)?
+* from simulated data, 10-20 days works really well, with their own positives and downsides. I'm working with 14 for now
 
 
 # Extra notes on smoothing
