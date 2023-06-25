@@ -18,7 +18,7 @@
 		65DB27F52A36CA7C00A263AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB27F42A36CA7C00A263AC /* ContentView.swift */; };
 		65DB27F72A36CA7E00A263AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65DB27F62A36CA7E00A263AC /* Assets.xcassets */; };
 		65DB27FA2A36CA7E00A263AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65DB27F92A36CA7E00A263AC /* Preview Assets.xcassets */; };
-		65FADBB92A46541D00E33C0F /* keyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FADBB82A46541D00E33C0F /* keyboardViewModel.swift */; };
+		65FADBBB2A47D5E300E33C0F /* EnvironmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FADBBA2A47D5E300E33C0F /* EnvironmentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +34,7 @@
 		65DB27F42A36CA7C00A263AC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		65DB27F62A36CA7E00A263AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65DB27F92A36CA7E00A263AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		65FADBB82A46541D00E33C0F /* keyboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboardViewModel.swift; sourceTree = "<group>"; };
+		65FADBBA2A47D5E300E33C0F /* EnvironmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 			children = (
 				65630F9F2A439AD7005173F8 /* MainViewModel.swift */,
 				65630FA12A44007B005173F8 /* SettingViewModel.swift */,
-				65FADBB82A46541D00E33C0F /* keyboardViewModel.swift */,
+				65FADBBA2A47D5E300E33C0F /* EnvironmentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -199,10 +199,10 @@
 				65630F9E2A4394F0005173F8 /* PersonalInfoView.swift in Sources */,
 				65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */,
 				659CB2322A416C5D003556C0 /*  MainView.swift in Sources */,
+				65FADBBB2A47D5E300E33C0F /* EnvironmentViewModel.swift in Sources */,
 				656FF8952A4261F4006ED548 /* MeasurementView.swift in Sources */,
 				65630FA22A44007B005173F8 /* SettingViewModel.swift in Sources */,
 				65630FA02A439AD7005173F8 /* MainViewModel.swift in Sources */,
-				65FADBB92A46541D00E33C0F /* keyboardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

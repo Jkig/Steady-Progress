@@ -23,10 +23,10 @@ struct Model: Identifiable {
 
 
 class MainViewModel: ObservableObject {
-    @StateObject var keyView = KeyboardViewModel()
+    @StateObject var environmentView = EnvironmentViewModel()
     // @Published var keyboardIsPresented: Bool = false
     @Published var showAlert:Bool = false
-    @Published var daysToSmooth:Int = 10
+    @Published var daysToSmooth:Int = 14
     
     
     @AppStorage("goal") var storedGoal:Double = 160
@@ -57,6 +57,12 @@ class MainViewModel: ObservableObject {
         UserDefaults.standard.set(170, forKey: "minVal")
         UserDefaults.standard.set(185, forKey: "maxVal")
         UserDefaults.standard.set(startWeight, forKey: "startweight")
+        
+        
+        goal = UserDefaults.standard.double(forKey: "goal")
+        minVal = UserDefaults.standard.double(forKey: "minVal")
+        maxVal = UserDefaults.standard.double(forKey: "maxVal")
+        startWeight = UserDefaults.standard.double(forKey: "startWeight")
     }
     
     
@@ -175,7 +181,7 @@ class MainViewModel: ObservableObject {
     
     func addMeasurement(weightSTR:String) {
         if weightSTR == ""{
-            keyView.keyboardIsPresented = false
+            environmentView.keyboardIsPresented = false
             return
         }
         let weight:Double = Double(weightSTR)!
@@ -183,7 +189,7 @@ class MainViewModel: ObservableObject {
         if !data.isEmpty{
             if Date() < data.last!.date + (10*60*60) {
                 showAlert = true
-                keyView.keyboardIsPresented = false
+                environmentView.keyboardIsPresented = false
                 return
             }
         }
@@ -218,8 +224,6 @@ class MainViewModel: ObservableObject {
             startWeight = newSmoothWeight
         }
         
-        // keyView.keyboardIsPresented = false
-        
         // TODO: push (new) data, and smoothdata to storage
         UserDefaults.standard.set(minVal, forKey: "minVal")
         UserDefaults.standard.set(maxVal, forKey: "maxVal")
@@ -227,12 +231,8 @@ class MainViewModel: ObservableObject {
     }
     
     func setGoal(newGoal: Double){
-        // there is a bug here for minVal and maxVal, if new goal is less extreem than old goal
         goal = newGoal
-        minVal = min(goal*0.95, minVal)
-        maxVal = max(goal*1.05+1, maxVal)
-        
-        // keyView.keyboardIsPresented = false
+        setUpData()
         
         UserDefaults.standard.set(goal, forKey: "goal")
         UserDefaults.standard.set(minVal, forKey: "minVal")

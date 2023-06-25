@@ -10,7 +10,7 @@ import Charts
 
 
 struct ContentView: View {
-    @StateObject var viewModel = KeyboardViewModel()
+    @StateObject var viewModel = EnvironmentViewModel()
     @State private var selectedTab = 0
     @State var goal: Float = 0
     
@@ -30,6 +30,7 @@ struct ContentView: View {
                 }
                 .tag(1)
         }
+        .id(viewModel.reset)
     }
 }
 

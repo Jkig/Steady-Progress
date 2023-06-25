@@ -10,6 +10,7 @@ import SwiftUI
 struct EditView: View {
     let data: [Model]
     @StateObject var viewModel = MainViewModel()
+    @EnvironmentObject var environmentView: EnvironmentViewModel
     
     var body: some View {
         ScrollView{

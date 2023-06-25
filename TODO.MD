@@ -1,18 +1,11 @@
-# Current todo:
-* have zo, ben see if it looks good, then decide on smoothing
-
-# store data on device
-* data and smoothdata will probably be tougher, for now I'll get it to work and fix preformance later
-* I think the strategy is coding/decoding, 
-
-# Reload
-* Reload Chart when toggling smoothed data, show Goal, set goal and edit old
-* edit old data (I think reload fail is causing problem)
-* environment objects/state higher are probably the answer
+# TODO:
+* edit old data
+* data and smoothdata will probably be tougher, for now I'll get it to work and imporove preformance later, but for now max is 2 data points per day, I have time to get it out there and fix preformance later.
+* I think the strategy is coding/decoding
 
 
 # From the above things, the MVP is ready. Release ASAP and get users trying it
-* and chat with some people about how to make the posting look good
+* Chat with some people about how to make the posting look good
 
 
 # Bigger/later things

@@ -10,6 +10,7 @@ import SwiftUI
 struct MeasurementView: View {
     let measurement:Model
     @StateObject var viewModel = MainViewModel()
+    @EnvironmentObject var environmentView: EnvironmentViewModel
     
     
     var body: some View {
@@ -20,6 +21,7 @@ struct MeasurementView: View {
             Spacer()
             Button(action: {
                 viewModel.deleteOld(index: measurement.id)
+                environmentView.reset = UUID()
             }) {
                 Text("Delete")
                     .padding()

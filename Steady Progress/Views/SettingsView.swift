@@ -11,7 +11,7 @@ struct SettingsView: View {
     @StateObject var mainViewModel = MainViewModel()
     @StateObject var viewModel = SettingsViewModel()
     // @State var keyboardIsPresented:Bool = false
-    @EnvironmentObject var environmentView: KeyboardViewModel
+    @EnvironmentObject var environmentView: EnvironmentViewModel
     
     func setGoalWeight() {
         UIApplication.shared.sendAction(
@@ -44,6 +44,7 @@ struct SettingsView: View {
                             }
                             .onChange(of: viewModel.showGoal) { _ in
                                 viewModel.storeSettings()
+                                environmentView.reset = UUID()
                             }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
                         }
@@ -75,6 +76,7 @@ struct SettingsView: View {
                             }
                             .onChange(of: viewModel.showSmooth) { _ in
                                 viewModel.storeSettings()
+                                environmentView.reset = UUID()
                             }
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
                         }
@@ -140,6 +142,7 @@ struct SettingsView: View {
                             Spacer()
                             Button {
                                 setGoalWeight()
+                                environmentView.reset = UUID()
                             } label: {
                                 Text("Set")
                             }

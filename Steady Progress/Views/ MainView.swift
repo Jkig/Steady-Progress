@@ -31,7 +31,7 @@ struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @StateObject var settingsViewModel = SettingsViewModel()
     
-    @EnvironmentObject var environmentView: KeyboardViewModel
+    @EnvironmentObject var environmentView: EnvironmentViewModel
     @State private var text = ""
     
     func keyBoardClose(){
@@ -168,11 +168,5 @@ struct MainView_Previews: PreviewProvider {
         MainView()
     }
 }
-
-
-
-
-
-
 
 
