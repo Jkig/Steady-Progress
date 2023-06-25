@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-struct Model: Identifiable {
+struct Model: Codable, Identifiable {
     var id: Int // I think change this to simly the index it is at, should be fine onece dates are accrate
     var date: Date
     var weight: Double
@@ -48,9 +48,40 @@ class MainViewModel: ObservableObject {
         minVal = UserDefaults.standard.double(forKey: "minVal")
         maxVal = UserDefaults.standard.double(forKey: "maxVal")
         startWeight = UserDefaults.standard.double(forKey: "startWeight")
-        // TODO: pull data and smooth from storage
+        // resetStored()
         
-        setupTesting()
+        print("in innit")
+        if let data = UserDefaults.standard.data(forKey: "dataKey") {
+            print("trying to read raw")
+            let decoder = JSONDecoder()
+            if let decodedModels = try? decoder.decode([Model].self, from: data) {
+                print("reading raw")
+                self.data = decodedModels
+            }
+        }
+        
+        if let smoothData = UserDefaults.standard.data(forKey: "smoothDataKey") {
+            print("trying to read smooth")
+            let decoder = JSONDecoder()
+            if let decodedSmoothModels = try? decoder.decode([Model].self, from: smoothData) {
+                print("reading smooth")
+                self.smoothData = decodedSmoothModels
+            }
+        }
+        
+        // setupTesting()
+    }
+    
+    func storeData() {
+        let encoder = JSONEncoder()
+        if let encodedData = try? encoder.encode(data) {
+            UserDefaults.standard.set(encodedData, forKey: "dataKey")
+        }
+        
+        if let encodedSmoothData = try? encoder.encode(smoothData) {
+            UserDefaults.standard.set(encodedSmoothData, forKey: "smoothDataKey")
+        }
+        
     }
     
     func resetStored() {
@@ -63,6 +94,11 @@ class MainViewModel: ObservableObject {
         minVal = UserDefaults.standard.double(forKey: "minVal")
         maxVal = UserDefaults.standard.double(forKey: "maxVal")
         startWeight = UserDefaults.standard.double(forKey: "startWeight")
+        
+        
+        UserDefaults.standard.set(nil, forKey: "dataKey")
+        UserDefaults.standard.set(nil, forKey: "smoothDataKey")
+        
     }
     
     
@@ -149,8 +185,7 @@ class MainViewModel: ObservableObject {
         UserDefaults.standard.set(minVal, forKey: "minVal")
         UserDefaults.standard.set(maxVal, forKey: "maxVal")
         UserDefaults.standard.set(startWeight, forKey: "startweight")
-        // TODO: set data and smooth data
-        
+        storeData()
     }
     
     
@@ -181,20 +216,19 @@ class MainViewModel: ObservableObject {
     
     func addMeasurement(weightSTR:String) {
         if weightSTR == ""{
-            environmentView.keyboardIsPresented = false
+            // environmentView.keyboardIsPresented = false
             return
         }
-        let weight:Double = Double(weightSTR)!
         
         if !data.isEmpty{
             if Date() < data.last!.date + (10*60*60) {
                 showAlert = true
-                environmentView.keyboardIsPresented = false
+                // environmentView.keyboardIsPresented = false
                 return
             }
         }
-         
         
+        let weight:Double = Double(weightSTR)!
         minVal = min(weight*0.95, minVal)
         maxVal = max(weight*1.05+1, maxVal)
         
@@ -224,10 +258,10 @@ class MainViewModel: ObservableObject {
             startWeight = newSmoothWeight
         }
         
-        // TODO: push (new) data, and smoothdata to storage
         UserDefaults.standard.set(minVal, forKey: "minVal")
         UserDefaults.standard.set(maxVal, forKey: "maxVal")
         UserDefaults.standard.set(startWeight, forKey: "startweight")
+        storeData()
     }
     
     func setGoal(newGoal: Double){

@@ -1,7 +1,6 @@
 # TODO:
 * edit old data
-* data and smoothdata will probably be tougher, for now I'll get it to work and imporove preformance later, but for now max is 2 data points per day, I have time to get it out there and fix preformance later.
-* I think the strategy is coding/decoding
+* now just a little error here, it deletes 2 datapoints instead of 1
 
 
 # From the above things, the MVP is ready. Release ASAP and get users trying it

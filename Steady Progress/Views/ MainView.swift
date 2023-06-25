@@ -126,6 +126,7 @@ struct MainView: View {
                         Button {
                             //viewModel.addMeasurement(weightSTR: text)
                             keyBoardCloseWrite()
+                            environmentView.keyboardIsPresented = false
                         } label: {
                             Text("Add")
                         }
