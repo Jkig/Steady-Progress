@@ -15,7 +15,7 @@ struct EditView: View {
     var body: some View {
         ScrollView{
             VStack (spacing: 20) {
-                ForEach(data) { model in
+                ForEach(data.reversed()) { model in
                         MeasurementView(measurement: model)
                     }
                 

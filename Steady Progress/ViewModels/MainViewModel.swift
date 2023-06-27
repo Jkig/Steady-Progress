@@ -99,6 +99,7 @@ class MainViewModel: ObservableObject {
         resetStored()
         data = []
         smoothData = []
+        resetStored()
         
         startWeight = start
         UserDefaults.standard.set(startWeight, forKey: "startweight")
@@ -261,7 +262,10 @@ class MainViewModel: ObservableObject {
     
     func setGoal(newGoal: Double){
         goal = newGoal
-        setUpData()
+        
+        minVal = min(goal*0.95, minVal)
+        maxVal = max(goal*1.05+1, maxVal)
+        
         
         UserDefaults.standard.set(goal, forKey: "goal")
         UserDefaults.standard.set(minVal, forKey: "minVal")
