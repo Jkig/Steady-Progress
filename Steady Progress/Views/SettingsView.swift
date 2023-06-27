@@ -135,6 +135,17 @@ struct SettingsView: View {
                         }
                          */
                         
+                        Button(action:{
+                            environmentView.keyboardIsPresented = false
+                            
+                        }, label:{
+                                NavigationLink("Demo", destination: demoMode())
+                            })
+                            .padding(8)
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        
                     }}
                 if environmentView.keyboardIsPresented {
                         // Display Toolbar View

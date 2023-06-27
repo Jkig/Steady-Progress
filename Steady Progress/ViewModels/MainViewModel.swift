@@ -63,12 +63,6 @@ class MainViewModel: ObservableObject {
                 self.smoothData = decodedSmoothModels
             }
         }
-        /*
-        if data.isEmpty {
-            setupTesting()
-        }
-         */
-        
     }
     
     func storeData() {
@@ -101,13 +95,18 @@ class MainViewModel: ObservableObject {
     }
     
     
-    func setupTesting( ){
+    func setupDemo(weights:[Double], start:Double){
         resetStored()
-        startTestData()
+        data = []
+        smoothData = []
+        
+        startWeight = start
+        UserDefaults.standard.set(startWeight, forKey: "startweight")
+        
+        startTestData(weights:weights)
     }
     
-    func startTestData() {
-        let weights: [Double] = [186.2, 185.8, 186.4, 186.2, 184.8, 186.2, 186.7, 186.6, 185.1, 184.3, 184.9, 183.3, 185.9, 184.7, 182.5, 184.6, 183.2, 182.7, 182.8, 183.5, 185.7, 182.8, 182.5, 183.0, 184.3, 185.4, 180.2, 179.2, 183.9, 184.6, 179.4, 180.8, 182.6, 178.6, 181.3, 179.2, 183.9, 179.8, 182.9, 180.5, 183.2, 179.8, 180.5, 182.7, 179.9, 179.9, 180.7, 179.5, 180.0, 180.1, 180.3, 181.5, 180.3, 178.9, 177.5, 181.8, 181.0, 176.7, 176.1, 178.7, 181.8, 179.6, 178.1, 181.5, 177.6, 180.3, 177.7, 175.5, 179.8, 178.4, 180.7, 179.7, 179.9, 180.5, 180.1, 175.7, 178.6, 175.6, 178.2, 176.0, 177.8, 175.5, 176.7, 173.8, 178.0, 176.7, 176.2, 174.6, 176.9, 176.6, 173.4, 173.0, 175.0, 176.3, 176.8, 173.8, 178.0, 174.8, 172.5, 172.7]
+    func startTestData(weights:[Double]) {
         data = weights.enumerated().map { index, weight in
             Model(id: index, date: Date().addingTimeInterval(Double(index)*(24*60 * 60)) - (100*24*60*60), weight: weight)
         }
@@ -130,7 +129,9 @@ class MainViewModel: ObservableObject {
         var minValSoFar:Double = 1000
         var maxValSoFar:Double = 0
         
+        
         var incomplete:Double = 0
+        
         for i in 0..<min(daysToSmooth-1, data.count){
             incomplete += data[i].weight
             smoothData.append(Model(id: i, date:data[i].date, weight: incomplete/Double(i+1)))
@@ -212,14 +213,12 @@ class MainViewModel: ObservableObject {
     
     func addMeasurement(weightSTR:String) {
         if weightSTR == ""{
-            // environmentView.keyboardIsPresented = false
             return
         }
         
         if !data.isEmpty{
             if Date() < data.last!.date + (10*60*60) {
                 showAlert = true
-                // environmentView.keyboardIsPresented = false
                 return
             }
         }
