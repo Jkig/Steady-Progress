@@ -21,6 +21,7 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "scalemass")
                 }
+                .navigationViewStyle(StackNavigationViewStyle())
                 .tag(0)
 
             SettingsView()
@@ -28,6 +29,7 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "gear")
                 }
+                .navigationViewStyle(StackNavigationViewStyle())
                 .tag(1)
         }
         .id(viewModel.reset)

@@ -12,6 +12,7 @@ struct EditView: View {
     @StateObject var viewModel = MainViewModel()
     @EnvironmentObject var environmentView: EnvironmentViewModel
     
+    
     var body: some View {
         ScrollView{
             VStack (spacing: 20) {

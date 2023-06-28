@@ -104,6 +104,10 @@ struct SettingsView: View {
                             TextField("Enter Value", value: $mainViewModel.goal, format: .number)
                                 .keyboardType(.decimalPad)
                                 .frame(width: 40)
+                                .onSubmit {
+                                    setGoalWeight()
+                                    environmentView.reset = UUID()
+                                }
                         }
                         .padding()
                         
