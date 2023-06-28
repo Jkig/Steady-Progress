@@ -28,17 +28,17 @@ class MainViewModel: ObservableObject {
     @Published var showAlert:Bool = false
     @Published var daysToSmooth:Int = 14
     
-    
+    // the app storeage and publish stuff here is having wierd defaults
     @AppStorage("goal") var storedGoal:Double = 160
-    @AppStorage("minVal") var storedMinVal:Double = 500
-    @AppStorage("maxVal") var storedMaxVal:Double = 500
-    @AppStorage("startWeight") var storedStartWeight:Double = 0
+    @AppStorage("minVal") var storedMinVal:Double = 400
+    @AppStorage("maxVal") var storedMaxVal:Double = 500.0097
+    @AppStorage("startWeight") var storedStartWeight:Double = 160
     
     
-    @Published var goal:Double
-    @Published var minVal:Double = 500
-    @Published var maxVal:Double = 0
-    @Published var startWeight:Double = 0
+    @Published var goal:Double = 160
+    @Published var minVal:Double = 400
+    @Published var maxVal:Double = 500
+    @Published var startWeight:Double = 160
     @Published var data: [Model] = []
     @Published var smoothData: [Model] = []
     
@@ -216,17 +216,24 @@ class MainViewModel: ObservableObject {
         if weightSTR == ""{
             return
         }
-        
+        /*
         if !data.isEmpty{
             if Date() < data.last!.date + (10*60*60) {
                 showAlert = true
                 return
             }
         }
-        
+        */
         let weight:Double = Double(weightSTR)!
         minVal = min(weight*0.95, minVal)
         maxVal = max(weight*1.05+1, maxVal)
+        
+        if minVal == 0 {
+            minVal = min(weight*0.95, goal*0.95)
+        }
+        if maxVal == 500.0097{
+            maxVal = max(weight*1.05+1, goal*1.05+1)
+        }
         
         data.append(Model(id: data.count, date: Date(), weight: weight))
         var newSmoothWeight:Double = 0
@@ -262,14 +269,35 @@ class MainViewModel: ObservableObject {
     
     func setGoal(newGoal: Double){
         goal = newGoal
-        
-        minVal = min(goal*0.95, minVal)
-        maxVal = max(goal*1.05+1, maxVal)
-        
-        
         UserDefaults.standard.set(goal, forKey: "goal")
-        UserDefaults.standard.set(minVal, forKey: "minVal")
-        UserDefaults.standard.set(maxVal, forKey: "maxVal")
+        
+        
+        if !data.isEmpty {
+            var minOfVals:Double = 2000
+            var maxOfVals:Double = 0
+            
+            for i in 0..<data.count {
+                if data[i].weight < minOfVals{
+                    minOfVals = data[i].weight
+                }
+                if data[i].weight > maxOfVals{
+                    maxOfVals = data[i].weight
+                }
+            }
+            
+            minVal = min(goal*0.95, minOfVals*0.95)
+            maxVal = max(goal*1.05+1, maxOfVals*1.05+1)
+            
+            UserDefaults.standard.set(minVal, forKey: "minVal")
+            UserDefaults.standard.set(maxVal, forKey: "maxVal")
+        } else {
+            minVal = min(minVal, goal*0.95)
+            maxVal = max(maxVal, goal*1.05+1)
+            
+            
+            UserDefaults.standard.set(minVal, forKey: "minVal")
+            UserDefaults.standard.set(maxVal, forKey: "maxVal")
+        }
     }
 }
 

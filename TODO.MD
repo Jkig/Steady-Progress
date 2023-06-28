@@ -13,3 +13,4 @@
 * personal data stuff, so can calculate BMI, estimate passive caloric burn, connect with apple info, etc.
 * remove demo mode
 * add back change once demo is removed
+* add back block if trying to add data too soon

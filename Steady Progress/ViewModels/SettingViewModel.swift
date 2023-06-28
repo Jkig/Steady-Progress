@@ -18,9 +18,9 @@ class SettingsViewModel:ObservableObject {
     
     // @Published var isKilograms = false
     // @Published var showGoalLine = true
-    @Published var showGoal:Bool
-    @Published var showSmooth:Bool
-    @Published var selection:String
+    @Published var showGoal:Bool = true
+    @Published var showSmooth:Bool = true
+    @Published var selection:String = "Loose weight"
     // @Published var showBMI = true
     // @Published var heightFeet = 5
     // @Published var heightInches = 9
