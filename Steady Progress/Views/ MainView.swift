@@ -81,7 +81,7 @@ struct MainView: View {
                         
                         if viewModel.data.count > viewModel.daysToSmooth{
                             HStack{
-                                Text("Estimated True Weight")
+                                Text("Recent Average Weight")
                                     .font(.system(size:12))
                                     .offset(y: 7)
                                 
@@ -95,7 +95,15 @@ struct MainView: View {
                                  .font(.system(size:20))
                                  .offset(y: 5)
                                  */
-                                
+                                Button {
+                                    viewModel.explainTrueWeight()
+                                    viewModel.showAlert = true
+                                } label: {
+                                    Text("?")
+                                }
+                                .padding(8)
+                                .cornerRadius(10)
+                                .foregroundColor(.black)
                             }
                             .padding([.leading, .trailing])
                         } else{
@@ -131,6 +139,7 @@ struct MainView: View {
                                     //viewModel.addMeasurement(weightSTR: text)
                                     keyBoardCloseWrite()
                                     environmentView.keyboardIsPresented = false
+                                    
                                 } label: {
                                     Text("Add")
                                 }
@@ -166,8 +175,8 @@ struct MainView: View {
                     text = ""
                 }
                 .alert(isPresented: $viewModel.showAlert) {
-                    Alert(title: Text("Too soon"),
-                          message: Text("Results take time, please wait until tomorrow to measure again :)"),
+                    Alert(title: Text(viewModel.alertTitle),
+                          message: Text(viewModel.alertText),
                           dismissButton: .default(Text("OK")))
                     
                 }

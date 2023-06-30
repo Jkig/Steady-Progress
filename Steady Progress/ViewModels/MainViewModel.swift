@@ -42,6 +42,9 @@ class MainViewModel: ObservableObject {
     @Published var data: [Model] = []
     @Published var smoothData: [Model] = []
     
+    @Published var alertTitle:String = "Too soon"
+    @Published var alertText:String = "Results take time, please wait until tomorrow to measure again :)"
+    
     
     init() {
         goal = UserDefaults.standard.double(forKey: "goal")
@@ -211,20 +214,50 @@ class MainViewModel: ObservableObject {
         setUpData()
     }
     
+    func explainTrueWeight() {
+        alertTitle = "What is True weight?"
+        alertText = "This is just the average of the last 14 measurements to get rid of fluctuations. If you are loosing weight this is an overestimate. If you are gaining weight it is an underestimate. If this seems too far off (more than 1 lbs) check that input measurements were accurate"
+        return
+    }
+    
     
     func addMeasurement(weightSTR:String) {
-        if weightSTR == ""{
+        if weightSTR == "" {
             return
         }
-        /*
+        
+        let weight:Double = Double(weightSTR)!
+        
         if !data.isEmpty{
+            /*
             if Date() < data.last!.date + (10*60*60) {
+                showAlert = true
+                alertTitle = "Too Soon"
+                alertText = "Results take time, please wait until tomorrow to measure again :)"
+                return
+            }
+             */
+            
+            
+            
+            if weight > 1.2 * data.last!.weight {
+                alertTitle = "Large Change"
+                alertText = "You may not input a increase of > 20%"
                 showAlert = true
                 return
             }
+            
+            if weight < 0.8 * data.last!.weight {
+                alertTitle = "Large Change"
+                alertText = "You may not input a decrease of > 20%"
+                showAlert = true
+                return
+            }
+            
+            
+            
         }
-        */
-        let weight:Double = Double(weightSTR)!
+        
         minVal = min(weight*0.95, minVal)
         maxVal = max(weight*1.05+1, maxVal)
         
