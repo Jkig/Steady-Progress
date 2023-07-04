@@ -14,6 +14,7 @@
 		656FF8952A4261F4006ED548 /* MeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FF8942A4261F4006ED548 /* MeasurementView.swift */; };
 		659CB2322A416C5D003556C0 /*  MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CB2312A416C5D003556C0 /*  MainView.swift */; };
 		659CB2342A416C8C003556C0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659CB2332A416C8C003556C0 /* SettingsView.swift */; };
+		65CA75012A54D01600FFDB30 /* Disclosures and Methodologies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA75002A54D01600FFDB30 /* Disclosures and Methodologies.swift */; };
 		65CCE1412A4B693F00B97665 /* demoMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CCE1402A4B693F00B97665 /* demoMode.swift */; };
 		65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB27F22A36CA7C00A263AC /* Steady_ProgressApp.swift */; };
 		65DB27F52A36CA7C00A263AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB27F42A36CA7C00A263AC /* ContentView.swift */; };
@@ -30,6 +31,7 @@
 		656FF8942A4261F4006ED548 /* MeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementView.swift; sourceTree = "<group>"; };
 		659CB2312A416C5D003556C0 /*  MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " MainView.swift"; sourceTree = "<group>"; };
 		659CB2332A416C8C003556C0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		65CA75002A54D01600FFDB30 /* Disclosures and Methodologies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disclosures and Methodologies.swift"; sourceTree = "<group>"; };
 		65CCE1402A4B693F00B97665 /* demoMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demoMode.swift; sourceTree = "<group>"; };
 		65DB27EF2A36CA7C00A263AC /* Steady Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Steady Progress.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65DB27F22A36CA7C00A263AC /* Steady_ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Steady_ProgressApp.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				656FF8922A4257FD006ED548 /* EditView.swift */,
 				65630F9D2A4394F0005173F8 /* PersonalInfoView.swift */,
 				65CCE1402A4B693F00B97665 /* demoMode.swift */,
+				65CA75002A54D01600FFDB30 /* Disclosures and Methodologies.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */,
 				659CB2322A416C5D003556C0 /*  MainView.swift in Sources */,
 				65FADBBB2A47D5E300E33C0F /* EnvironmentViewModel.swift in Sources */,
+				65CA75012A54D01600FFDB30 /* Disclosures and Methodologies.swift in Sources */,
 				656FF8952A4261F4006ED548 /* MeasurementView.swift in Sources */,
 				65630FA22A44007B005173F8 /* SettingViewModel.swift in Sources */,
 				65630FA02A439AD7005173F8 /* MainViewModel.swift in Sources */,

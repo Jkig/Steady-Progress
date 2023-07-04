@@ -150,6 +150,17 @@ struct SettingsView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                         
+                        Button(action:{
+                            environmentView.keyboardIsPresented = false
+                            
+                        }, label:{
+                                NavigationLink("Disclosures and Methodologies", destination: Disclosures_and_Methodologies())
+                            })
+                            .padding(8)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        
                     }}
                 if environmentView.keyboardIsPresented {
                         // Display Toolbar View
