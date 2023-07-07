@@ -98,12 +98,10 @@ struct SettingsView: View {
                         
                         HStack{
                             Text("Goal Weight")
-                                .padding([.trailing])
                             Spacer()
-                                .padding([.trailing])
-                            TextField("Enter Value", value: $mainViewModel.goal, format: .number)
+                            TextField("Goal", value: $mainViewModel.goal, format: .number)
                                 .keyboardType(.decimalPad)
-                                .frame(width: 40)
+                                .frame(width: 75)
                                 .onSubmit {
                                     setGoalWeight()
                                     environmentView.reset = UUID()
@@ -138,7 +136,7 @@ struct SettingsView: View {
                             // Text("Passive caloric Burn: 2000")
                         }
                          */
-                        
+                        /*
                         Button(action:{
                             environmentView.keyboardIsPresented = false
                             
@@ -149,7 +147,7 @@ struct SettingsView: View {
                             .background(Color.red)
                             .foregroundColor(.white)
                             .cornerRadius(10)
-                        
+                        */
                         Button(action:{
                             environmentView.keyboardIsPresented = false
                             
@@ -157,8 +155,7 @@ struct SettingsView: View {
                                 NavigationLink("Disclosures and Methodologies", destination: Disclosures_and_Methodologies())
                             })
                             .padding(8)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
+                            .foregroundColor(.blue)
                             .cornerRadius(10)
                         
                     }}

@@ -229,15 +229,13 @@ class MainViewModel: ObservableObject {
         let weight:Double = Double(weightSTR)!
         
         if !data.isEmpty{
-            /*
+            
             if Date() < data.last!.date + (10*60*60) {
                 showAlert = true
                 alertTitle = "Too Soon"
                 alertText = "Results take time, please wait until tomorrow to measure again :)"
                 return
             }
-             */
-            
             
             
             if weight > 1.2 * data.last!.weight {

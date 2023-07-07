@@ -19,22 +19,31 @@ struct Disclosures_and_Methodologies: View {
             }
             Spacer()
             
-            Text(" • Smoothing means that the data point will be the average of that measurement as well as the preceeding 13 measurements.")
-                .padding([.leading], 4)
-                .padding([.top],2)
+            HStack {
+                Text(" • Smoothing means that the data point will be the average of that measurement as well as the preceeding 13 measurements.")
+                    .padding([.leading], 4)
+                    .padding([.top],2)
+                Spacer()
+            }
             
-            Text(" • If smoothing is turned off the graph will just connect the measurements with straight lines")
-                .padding([.leading], 4)
-                .padding([.top],2)
-            
-            Text(" • The first 14 measruements are the average of all measruements up to that point")
-                .padding([.leading], 4)
-                .padding([.top],2)
-            
-            Text(" • The Recent Average Weight is the average of the last 14 mearuements.")
-                .padding([.leading], 4)
-                .padding([.top],2)
-            
+            HStack {
+                Text(" • If smoothing is turned off the graph will just connect the measurements with straight lines")
+                    .padding([.leading], 4)
+                    .padding([.top],2)
+                Spacer()
+            }
+            HStack {
+                Text(" • The first 14 measruements are the average of all measruements up to that point")
+                    .padding([.leading], 4)
+                    .padding([.top],2)
+                Spacer()
+            }
+            HStack {
+                Text(" • The Recent Average Weight is the average of the last 14 mearuements.")
+                    .padding([.leading], 4)
+                    .padding([.top],2)
+                Spacer()
+            }
             Spacer()
                 .padding([.top])
             
