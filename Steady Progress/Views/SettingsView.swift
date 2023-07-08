@@ -81,6 +81,7 @@ struct SettingsView: View {
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
                         }
                         .padding()
+                        
                         HStack{
                             Text("Goal Direction")
                             Spacer()
@@ -94,7 +95,8 @@ struct SettingsView: View {
                             }
                             .pickerStyle(.menu)
                         }
-                        .padding()
+                        .padding([.top, .leading, .bottom])
+                        .padding(.trailing, 4)
                         
                         HStack{
                             Text("Goal Weight")
@@ -102,6 +104,7 @@ struct SettingsView: View {
                             TextField("Goal", value: $mainViewModel.goal, format: .number)
                                 .keyboardType(.decimalPad)
                                 .frame(width: 75)
+                                .multilineTextAlignment(.trailing)
                                 .onSubmit {
                                     setGoalWeight()
                                     environmentView.reset = UUID()
@@ -178,8 +181,8 @@ struct SettingsView: View {
                         .frame(width: UIScreen.main.bounds.width, height: 35)
                     }
                 }
+                .padding()
             }
-            .padding()
             .onReceive(keyboardPublisher) { presented in
                 environmentView.keyboardIsPresented = presented
             }

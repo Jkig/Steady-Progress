@@ -9,49 +9,53 @@ import SwiftUI
 
 struct Disclosures_and_Methodologies: View {
     var body: some View {
-        VStack{
-            HStack{
-                Text("Notes about methodologies")
-                    .font(.system(size:25))
-                    .bold()
-                    .padding([.trailing], 2)
+        VStack {
+            ScrollView {
+                VStack {
+                    HStack{
+                        Text("Notes about methodologies")
+                            .font(.system(size:25))
+                            .bold()
+                            .padding([.trailing], 2)
+                        Spacer()
+                    }
+                    Spacer()
+                    
+                    HStack {
+                        Text(" • Smoothing means that the data point will be the average of that measurement as well as the preceeding 13 measurements.")
+                            .padding([.leading], 10)
+                            .padding([.top],2)
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        Text(" • If smoothing is turned off the graph will just connect the measurements with straight lines")
+                            .padding([.leading], 10)
+                            .padding([.top],2)
+                        Spacer()
+                    }
+                    HStack {
+                        Text(" • The first 14 measruements are the average of all measruements up to that point")
+                            .padding([.leading], 10)
+                            .padding([.top],2)
+                        Spacer()
+                    }
+                    HStack {
+                        Text(" • The Recent Average Weight is the average of the last 14 mearuements.")
+                            .padding([.leading], 10)
+                            .padding([.top],2)
+                        Spacer()
+                    }
+                }
                 Spacer()
+                    .padding()
             }
-            Spacer()
-            
-            HStack {
-                Text(" • Smoothing means that the data point will be the average of that measurement as well as the preceeding 13 measurements.")
-                    .padding([.leading], 4)
-                    .padding([.top],2)
-                Spacer()
-            }
-            
-            HStack {
-                Text(" • If smoothing is turned off the graph will just connect the measurements with straight lines")
-                    .padding([.leading], 4)
-                    .padding([.top],2)
-                Spacer()
-            }
-            HStack {
-                Text(" • The first 14 measruements are the average of all measruements up to that point")
-                    .padding([.leading], 4)
-                    .padding([.top],2)
-                Spacer()
-            }
-            HStack {
-                Text(" • The Recent Average Weight is the average of the last 14 mearuements.")
-                    .padding([.leading], 4)
-                    .padding([.top],2)
-                Spacer()
-            }
-            Spacer()
-                .padding([.top])
-            
-            Text("See a doctor before making any changes that may impact you health.")
-                .font(.system(size:12))
-                .bold()
+        Text("See a doctor before making any changes that may impact you health.")
+            .font(.system(size:12))
+            .bold()
+            .multilineTextAlignment(.center)
         }
-        .padding()
+        .padding([.leading,.trailing])
     }
 }
 
