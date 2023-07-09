@@ -186,8 +186,11 @@ struct MainView: View {
 }
 
 struct MainView_Previews: PreviewProvider {
+    static let environmentVariable = EnvironmentViewModel()
+    
     static var previews: some View {
         MainView()
+            .environmentObject(environmentVariable)
     }
 }
 

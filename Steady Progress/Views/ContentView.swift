@@ -12,7 +12,6 @@ import Charts
 struct ContentView: View {
     @StateObject var viewModel = EnvironmentViewModel()
     @State private var selectedTab = 0
-    @State var goal: Float = 0
     
     var body: some View {
         TabView (selection: $selectedTab) {

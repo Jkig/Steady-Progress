@@ -1,9 +1,7 @@
 # Do the basics well:
-* get it to work for Mac
+* get it to work for Mac, the problem is that its stretching the app to width of keyboard(maybe of iPad maybe of Mac) not exactly sure how to solve yet, could just detect the os and get rid of the keyboard, or build separately for Mac I guess.
 * documentation
-* Pull out goal state variable in content view
-* fix preview thing with variables in preview
-* about and improve readme
+* improve about and readme
 * I don't need iPhone to be upgraded to latest iOS version, maybe 15 is good enough?
 * Pull some of these parts out, it works, now make it maintainable and readable
 
