@@ -9,18 +9,18 @@ import Foundation
 import SwiftUI
 
 class SettingsViewModel:ObservableObject {
-    @Published var direction = ["Loose weight", "Maintain weight", "Gain weight"]
+    @Published var direction = ["Lose weight", "Maintain weight", "Gain weight"]
     
     @AppStorage("showGoal") var storedShowGoal:Bool = true
     @AppStorage("showSmooth") var storedShowSmooth:Bool = true
-    @AppStorage("selection") var storedSelection:String = "Loose weight"
+    @AppStorage("selection") var storedSelection:String = "Lose weight"
     
     
     // @Published var isKilograms = false
     // @Published var showGoalLine = true
     @Published var showGoal:Bool = true
     @Published var showSmooth:Bool = true
-    @Published var selection:String = "Loose weight"
+    @Published var selection:String = "Lose weight"
     // @Published var showBMI = true
     // @Published var heightFeet = 5
     // @Published var heightInches = 9
@@ -32,7 +32,7 @@ class SettingsViewModel:ObservableObject {
         // TODO: init grab data from local storage if there is some
         showGoal = UserDefaults.standard.bool(forKey: "showGoal")
         showSmooth = UserDefaults.standard.bool(forKey: "showSmooth")
-        selection = UserDefaults.standard.string(forKey: "selection") ?? "Loose weight"
+        selection = UserDefaults.standard.string(forKey: "selection") ?? "Lose weight"
     }
     
     func storeSettings(){

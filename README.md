@@ -4,4 +4,4 @@
 * When I gained 10 lbs over 1.5 years, there was no point where "wow everything has changed", but this leads to a cycle where diets are necessary, maybe just light diets periodically, but still probably less healthy long run.
 
 # Try it out!
-* I'm going to by submitting to apple soon, there will be a link here when its available
+* https://apps.apple.com/us/app/steady-progress/id6450722177
