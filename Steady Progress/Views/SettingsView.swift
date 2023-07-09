@@ -178,7 +178,7 @@ struct SettingsView: View {
                             .cornerRadius(10)
                         }
                         .padding()
-                        .frame(width: UIScreen.main.bounds.width, height: 35)
+                        .frame(height: 35)
                     }
                 }
                 .padding()

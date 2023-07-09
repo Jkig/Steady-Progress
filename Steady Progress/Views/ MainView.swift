@@ -116,48 +116,20 @@ struct MainView: View {
                         Spacer()
                             .padding()
                         
-                        if environmentView.keyboardIsPresented {
-                            // Display Toolbar View
-                            HStack(alignment: .center) {
+
+                        HStack {
+                            if environmentView.keyboardIsPresented {
                                 Button {
                                     keyBoardClose()
-                                } label: {
-                                    Text("Cancel")
-                                }
-                                .padding(8)
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                
-                                /*
-                                Text(text)
-                                    .padding()
-                                */
-                                Spacer()
-                                
-                                Button {
-                                    //viewModel.addMeasurement(weightSTR: text)
-                                    keyBoardCloseWrite()
-                                    environmentView.keyboardIsPresented = false
-                                    
-                                } label: {
-                                    Text("Add")
-                                }
-                                .padding(8)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                
+                                } label: { Text("Cancel") }
+                                    .padding(8)
+                                    //.background(Color.red)
+                                    //.foregroundColor(.white)
+                                    .cornerRadius(10)
                             }
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width, height: 35)
-                        }
-                        
-                        
-                        HStack {
-                            
-                            NavigationLink("Edit Old", destination: EditView(data:viewModel.data))
-                            
+                            else {
+                                NavigationLink("Edit Old", destination: EditView(data:viewModel.data))
+                            }
                             TextField("Measurment", text: $text)
                                 .keyboardType(.decimalPad)
                                 .padding()
@@ -165,7 +137,22 @@ struct MainView: View {
                                     keyBoardCloseWrite()
                                     environmentView.keyboardIsPresented = false
                                 }
+                            if environmentView.keyboardIsPresented {
+                                Button {
+                                    keyBoardCloseWrite()
+                                    environmentView.keyboardIsPresented = false
+                                } label: { Text("Add") }
+                                    .padding(8)
+                                    //.background(Color.blue)
+                                    //.foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                            
                         }
+                        .padding(.bottom)
+                        .frame(height: 35)
+                        
+                        
                 }
                     
                 }
