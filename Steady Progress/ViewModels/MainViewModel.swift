@@ -214,12 +214,6 @@ class MainViewModel: ObservableObject {
         setUpData()
     }
     
-    func explainTrueWeight() {
-        alertTitle = "What is recent average weight?"
-        alertText = "This is just the average of the last 14 measurements to get rid of fluctuations. If you are loosing weight this is an overestimate. If you are gaining weight it is an underestimate. If this seems too far off (more than 1 lbs) check that input measurements were accurate"
-        return
-    }
-    
     
     func addMeasurement(weightSTR:String) {
         if weightSTR == "" {

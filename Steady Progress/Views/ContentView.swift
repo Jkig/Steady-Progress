@@ -37,6 +37,9 @@ struct ContentView: View {
 
 
 struct ContentView_Previews: PreviewProvider {
+    let viewModel = EnvironmentViewModel()
+    var selectedTab = 0
+    
     static var previews: some View {
         ContentView()
     }

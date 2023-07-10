@@ -61,23 +61,8 @@ struct MainView: View {
             VStack {
                 ScrollView {
                     VStack {
-                        GroupBox{
-                            Chart (settingsViewModel.showSmooth ? viewModel.smoothData : viewModel.data) {
-                                LineMark(
-                                    x: .value("Month", $0.date),
-                                    y: .value("Weight", $0.weight)
-                                )
-                                // maybe add option to show unsmoothed data
-                                if settingsViewModel.showGoal {
-                                    RuleMark(y: .value("goal", viewModel.goal))
-                                        .foregroundStyle(.red)
-                                }
-                                
-                            }
-                            .frame(height:400)
-                            .chartYScale(domain: Int(viewModel.minVal)...Int(viewModel.maxVal), type: nil)
-                        }
-                        .padding([.bottom])
+                        chartView(data:settingsViewModel.showSmooth ? viewModel.smoothData : viewModel.data, goal: viewModel.goal, minVal: viewModel.minVal,maxVal: viewModel.maxVal,showGoal: settingsViewModel.showGoal)
+                        
                         
                         if viewModel.data.count > viewModel.daysToSmooth{
                             HStack{
@@ -91,19 +76,10 @@ struct MainView: View {
                                     .font(.system(size:35))
                                 /*
                                  Text(String(format: "%.1f", viewModel.smoothData.last!.weight-viewModel.startWeight))
-                                 .foregroundColor(((settingsViewModel.selection == "Loose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) <= 0) || ((settingsViewModel.selection == "Gain weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) >= 0))) ? .green : .black)
+                                 .foregroundColor(((settingsViewModel.selection == "Lose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) <= 0) || ((settingsViewModel.selection == "Gain weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) >= 0))) ? .green : .black)
                                  .font(.system(size:20))
                                  .offset(y: 5)
                                  */
-                                Button {
-                                    viewModel.explainTrueWeight()
-                                    viewModel.showAlert = true
-                                } label: {
-                                    Text("?")
-                                }
-                                .padding(8)
-                                .cornerRadius(10)
-                                .foregroundColor(.black)
                             }
                             .padding([.leading, .trailing])
                         } else{
@@ -148,15 +124,11 @@ struct MainView: View {
                                     .cornerRadius(10)
                             }
                             
-                        }
-                        .padding(.bottom)
+                        }//hstack
                         .frame(height: 35)
-                        
-                        
-                }
-                    
-                }
-                .padding()
+                    }//Vstack
+                }//scroll
+                .padding([.top, .leading, .trailing])
                 .onReceive(keyboardPublisher) { presented in
                     environmentView.keyboardIsPresented = presented
                     text = ""
@@ -165,9 +137,8 @@ struct MainView: View {
                     Alert(title: Text(viewModel.alertTitle),
                           message: Text(viewModel.alertText),
                           dismissButton: .default(Text("OK")))
-                    
                 }
-            }
+            }//vstack
         }
     }
 }

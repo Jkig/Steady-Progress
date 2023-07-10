@@ -29,15 +29,6 @@ struct SettingsView: View {
             VStack{
                 ScrollView {
                     VStack {
-                        /*
-                        HStack {
-                            Toggle(isOn: $viewModel.isKilograms) {
-                                Text("Use KG")
-                            }
-                            .toggleStyle(SwitchToggleStyle(tint: .blue))
-                        }
-                        .padding()
-                        */
                         HStack {
                             Toggle(isOn: $viewModel.showGoal) {
                                 Text("Show Goal")
@@ -49,26 +40,6 @@ struct SettingsView: View {
                             .toggleStyle(SwitchToggleStyle(tint: .blue))
                         }
                         .padding()
-                        /*
-                        // goal for weight change line
-                        HStack {
-                            Toggle(isOn: $viewModel.showGoalLine) {
-                                Text("Show Goal Line")
-                            }
-                            .toggleStyle(SwitchToggleStyle(tint: .blue))
-                        }
-                        .padding()
-                        */
-                        /*
-                        HStack {
-                            Toggle(isOn: $viewModel.showBMI) {
-                                Text("BMI")
-                            }
-                            .toggleStyle(SwitchToggleStyle(tint: .blue))
-                        }
-                        .padding()
-                         
-                        */
                         
                         HStack {
                             Toggle(isOn: $viewModel.showSmooth) {
@@ -112,45 +83,7 @@ struct SettingsView: View {
                         }
                         .padding()
                         
-                        /*
-                        // personal info section
-                        VStack{
-                            Button(action:{}, label:{
-                                NavigationLink("Set Personal Data", destination: PersonalInfoView())
-                            })
-                            .padding(8)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            
-                            HStack{
-                                
-                                Text("Age: 50")
-                                
-                                Text("Height: 50")
-                                
-                                if viewModel.showBMI{
-                                    if !mainViewModel.data.isEmpty{
-                                        Text("BMI: \(String(format: "%.1f", mainViewModel.data.last!.weight/pow(Float(viewModel.heightFeet * 12 + viewModel.heightInches),2)*703))")
-                                    }
-                                }
-                            }
-                            // Could say what the BMI means, but probably not really helpful, may pull it all as well as the personal data  entirely
-                            // Text("Passive caloric Burn: 2000")
-                        }
-                         */
-                        /*
-                        Button(action:{
-                            environmentView.keyboardIsPresented = false
-                            
-                        }, label:{
-                                NavigationLink("Demo", destination: demoMode())
-                            })
-                            .padding(8)
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                        */
+                        
                         Button(action:{
                             environmentView.keyboardIsPresented = false
                             
@@ -160,8 +93,8 @@ struct SettingsView: View {
                             .padding(8)
                             .foregroundColor(.blue)
                             .cornerRadius(10)
-                        
-                    }}
+                    }
+                }
                 if environmentView.keyboardIsPresented {
                         // Display Toolbar View
                         HStack(alignment: .center) {
@@ -181,7 +114,7 @@ struct SettingsView: View {
                         .frame(height: 35)
                     }
                 }
-                .padding()
+                .padding([.top, .leading, .trailing])
             }
             .onReceive(keyboardPublisher) { presented in
                 environmentView.keyboardIsPresented = presented

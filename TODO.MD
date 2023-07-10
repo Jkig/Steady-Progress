@@ -1,6 +1,7 @@
 # Do the basics well:
 * documentation
 * improve about and readme
+* get all the way to good MVVM
 * Pull some of these parts out, it works, now make it maintainable and readable
 * keyboard is going to be annoying but worth it to pull out
 
