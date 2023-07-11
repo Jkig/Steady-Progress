@@ -2,12 +2,12 @@
 * documentation
 * improve about and readme
 * get all the way to good MVVM
-* Pull some of these parts out, it works, now make it maintainable and readable
-* keyboard is going to be annoying but worth it to pull out
 
-# build/ on release:
-* I don't need iPhone to be upgraded to latest iOS version, maybe 15 is good enough?
-* It works on Mac now, make sure to release
+# Pull some of these parts out, it works, now make it maintainable and readable
+* keyboard is going to be annoying but worth it to pull out
+* bring my added stuff (Cancel, add and set) out
+* pull testing out of mainView
+* separate some of the mainView logic
 
 
 # Bigger/later things

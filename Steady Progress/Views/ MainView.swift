@@ -127,6 +127,7 @@ struct MainView: View {
                         }//hstack
                         .frame(height: 35)
                     }//Vstack
+                    .padding(.bottom, 8)
                 }//scroll
                 .padding([.top, .leading, .trailing])
                 .onReceive(keyboardPublisher) { presented in
