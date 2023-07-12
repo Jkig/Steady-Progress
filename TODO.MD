@@ -3,6 +3,7 @@
 * improve about and readme
 * get all the way to good MVVM
 
+
 # Pull some of these parts out, it works, now make it maintainable and readable
 * keyboard is going to be annoying but worth it to pull out
 * bring my added stuff (Cancel, add and set) out
@@ -12,7 +13,7 @@
 
 # Bigger/later things
 * ask users what they want!!
-* allow users to set smoothing length, perhaps from a few presets?
+* allow users to set smoothing length, perhaps from a few presets? - I don't think they would care much
 * do the projections for true weight and true start weight
 * Store data in the cloud
 * Sign in with google and apple

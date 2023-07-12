@@ -51,7 +51,7 @@ class MainViewModel: ObservableObject {
         minVal = UserDefaults.standard.double(forKey: "minVal")
         maxVal = UserDefaults.standard.double(forKey: "maxVal")
         startWeight = UserDefaults.standard.double(forKey: "startWeight")
-        // resetStored()
+        
         
         if let data = UserDefaults.standard.data(forKey: "dataKey") {
             let decoder = JSONDecoder()
@@ -66,6 +66,17 @@ class MainViewModel: ObservableObject {
                 self.smoothData = decodedSmoothModels
             }
         }
+        
+        
+        if data.count > daysToSmooth-1{
+            startWeight = smoothData[daysToSmooth-1].weight
+        }
+        else {
+            if !smoothData.isEmpty{
+                startWeight = smoothData.last!.weight
+            }
+        }
+        UserDefaults.standard.set(startWeight, forKey: "startweight")
     }
     
     func storeData() {
@@ -79,6 +90,8 @@ class MainViewModel: ObservableObject {
         }
         
     }
+    /*
+    // testing functions
     
     func resetStored() {
         UserDefaults.standard.set(170, forKey: "minVal")
@@ -97,7 +110,6 @@ class MainViewModel: ObservableObject {
         
     }
     
-    
     func setupDemo(weights:[Double], start:Double){
         resetStored()
         data = []
@@ -105,7 +117,7 @@ class MainViewModel: ObservableObject {
         resetStored()
         
         startWeight = start
-        UserDefaults.standard.set(startWeight, forKey: "startweight")
+        UserDefaults.standard.set(startWeight, forKey: "startWeight")
         
         startTestData(weights:weights)
     }
@@ -114,20 +126,9 @@ class MainViewModel: ObservableObject {
         data = weights.enumerated().map { index, weight in
             Model(id: index, date: Date().addingTimeInterval(Double(index)*(24*60 * 60)) - (100*24*60*60), weight: weight)
         }
-        /*
-         // quick test for how holes in data are treadted (perfectly!) :)
-         var intermediateData:[Model] = []
-         intermediateData.append(contentsOf: data[0..<30])
-         intermediateData.append(contentsOf: data[50..<data.count])
-         
-         for i in 0..<intermediateData.count{
-             intermediateData[i].id = i
-         }
-         
-         data = intermediate
-         */
         setUpData()
     }
+     */
     
     func setUpData(){
         var minValSoFar:Double = 1000
@@ -148,7 +149,6 @@ class MainViewModel: ObservableObject {
             }
         }
         if data.count > daysToSmooth-1 {
-            startWeight = data[daysToSmooth-1].weight
             
             var runSum: Double = 0
             for i in 0..<daysToSmooth{
@@ -174,17 +174,21 @@ class MainViewModel: ObservableObject {
                 }
             }
         }
+        
+        if data.count > daysToSmooth-1{
+            startWeight = smoothData[daysToSmooth-1].weight
+        }
+        else {
+            if !smoothData.isEmpty{
+                startWeight = smoothData.last!.weight
+            }
+        }
+        UserDefaults.standard.set(startWeight, forKey: "startweight")
+        
+        
         minVal = min(goal*0.95, minValSoFar*0.95)
         maxVal = max(goal*1.05+1, (maxValSoFar*1.05)+1)
-        
-        /*
-        for i in 0..<data.count{
-            print(i)
-            print(data[i].id, data[i].date, data[i].weight)
-            print(smoothData[i].id, smoothData[i].date, smoothData[i].weight)
-        }
-         */
-        
+                
         
         UserDefaults.standard.set(minVal, forKey: "minVal")
         UserDefaults.standard.set(maxVal, forKey: "maxVal")
@@ -194,13 +198,10 @@ class MainViewModel: ObservableObject {
     
     
     func deleteOld(index:Int) {
-        // for now, I'll probably just recalculate the smoothed, but later I should save the time
-        // if deleting the largest or smallest just recalculate?
         var intermediateData: [Model] = []
         
         if index == 0{
             intermediateData.append(contentsOf: data[1..<data.count])
-            
         } else {
             intermediateData.append(contentsOf: data[0..<index])
             intermediateData.append(contentsOf: data[index+1..<data.count])
@@ -223,14 +224,12 @@ class MainViewModel: ObservableObject {
         let weight:Double = Double(weightSTR)!
         
         if !data.isEmpty{
-            
             if Date() < data.last!.date + (10*60*60) {
                 showAlert = true
                 alertTitle = "Too Soon"
                 alertText = "Results take time, please wait until tomorrow to measure again :)"
                 return
             }
-            
             
             if weight > 1.2 * data.last!.weight {
                 alertTitle = "Large Change"
@@ -245,9 +244,6 @@ class MainViewModel: ObservableObject {
                 showAlert = true
                 return
             }
-            
-            
-            
         }
         
         minVal = min(weight*0.95, minVal)
@@ -270,10 +266,8 @@ class MainViewModel: ObservableObject {
             }
             newSmoothWeight = total/Double(data.count)
         }
-        else{
+        else {
             var total:Double = 0
-            // 10 to smooth
-            // now we have 10 things,, so can go from 0-9, and 1-11
             for model in data[data.count-daysToSmooth..<data.count]{
                 total += model.weight
             }
@@ -281,11 +275,12 @@ class MainViewModel: ObservableObject {
         }
         smoothData.append(Model(id:data.last!.id, date:data.last!.date, weight: newSmoothWeight))
         
-        // first time, need to establish startWeight
-        if startWeight == 0 {
-            startWeight = newSmoothWeight
+        if data.count > daysToSmooth-1{
+            startWeight = smoothData[daysToSmooth-1].weight
         }
-        
+        else {
+            startWeight = smoothData.last!.weight
+        }
         UserDefaults.standard.set(minVal, forKey: "minVal")
         UserDefaults.standard.set(maxVal, forKey: "maxVal")
         UserDefaults.standard.set(startWeight, forKey: "startweight")

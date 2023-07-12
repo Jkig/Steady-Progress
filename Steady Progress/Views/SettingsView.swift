@@ -63,6 +63,7 @@ struct SettingsView: View {
                             }
                             .onChange(of: viewModel.selection) { _ in
                                 viewModel.storeSettings()
+                                environmentView.reset = UUID()
                             }
                             .pickerStyle(.menu)
                         }

@@ -55,7 +55,6 @@ struct MainView: View {
         text = ""
     }
     
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -74,12 +73,12 @@ struct MainView: View {
                                 
                                 Text(String(format: "%.1f", viewModel.smoothData.last!.weight))
                                     .font(.system(size:35))
-                                /*
+                                
                                  Text(String(format: "%.1f", viewModel.smoothData.last!.weight-viewModel.startWeight))
                                  .foregroundColor(((settingsViewModel.selection == "Lose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) <= 0) || ((settingsViewModel.selection == "Gain weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) >= 0))) ? .green : .black)
                                  .font(.system(size:20))
                                  .offset(y: 5)
-                                 */
+                                 
                             }
                             .padding([.leading, .trailing])
                         } else{
