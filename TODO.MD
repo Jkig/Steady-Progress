@@ -6,8 +6,6 @@
 
 # Pull some of these parts out, it works, now make it maintainable and readable
 * keyboard is going to be annoying but worth it to pull out
-* bring my added stuff (Cancel, add and set) out
-* pull testing out of mainView
 * separate some of the mainView logic
 
 

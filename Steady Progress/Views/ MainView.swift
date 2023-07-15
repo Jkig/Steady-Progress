@@ -62,35 +62,10 @@ struct MainView: View {
                     VStack {
                         chartView(data:settingsViewModel.showSmooth ? viewModel.smoothData : viewModel.data, goal: viewModel.goal, minVal: viewModel.minVal,maxVal: viewModel.maxVal,showGoal: settingsViewModel.showGoal)
                         
-                        
-                        if viewModel.data.count > viewModel.daysToSmooth{
-                            HStack{
-                                Text("Recent Average Weight")
-                                    .font(.system(size:12))
-                                    .offset(y: 7)
-                                
-                                Spacer()
-                                
-                                Text(String(format: "%.1f", viewModel.smoothData.last!.weight))
-                                    .font(.system(size:35))
-                                
-                                 Text(String(format: "%.1f", viewModel.smoothData.last!.weight-viewModel.startWeight))
-                                 .foregroundColor(((settingsViewModel.selection == "Lose weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) <= 0) || ((settingsViewModel.selection == "Gain weight" && (viewModel.smoothData.last!.weight-viewModel.startWeight) >= 0))) ? .green : .black)
-                                 .font(.system(size:20))
-                                 .offset(y: 5)
-                                 
-                            }
-                            .padding([.leading, .trailing])
-                        } else{
-                            Text("More data at \(viewModel.daysToSmooth) measurements!")
-                                .font(.system(size:20))
-                                .offset(y: 7)
-                                .padding()
-                        }
+                        recentAverage(change: viewModel.smoothData.last!.weight-viewModel.startWeight, weight: viewModel.smoothData.last!.weight, direction: settingsViewModel.selection, show: viewModel.data.count > viewModel.daysToSmooth ? true : false, days: viewModel.daysToSmooth)
                         
                         Spacer()
                             .padding()
-                        
 
                         HStack {
                             if environmentView.keyboardIsPresented {
@@ -101,6 +76,7 @@ struct MainView: View {
                                     //.background(Color.red)
                                     //.foregroundColor(.white)
                                     .cornerRadius(10)
+                                    .multilineTextAlignment(.leading)
                             }
                             else {
                                 NavigationLink("Edit Old", destination: EditView(data:viewModel.data))
@@ -122,9 +98,9 @@ struct MainView: View {
                                     //.foregroundColor(.white)
                                     .cornerRadius(10)
                             }
-                            
                         }//hstack
                         .frame(height: 35)
+                        .padding([.leading,.trailing])
                     }//Vstack
                     .padding(.bottom, 8)
                 }//scroll

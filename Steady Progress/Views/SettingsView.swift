@@ -107,8 +107,8 @@ struct SettingsView: View {
                                 Text("Set")
                             }
                             .padding(8)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
+                            //.background(Color.blue)
+                            //.foregroundColor(.white)
                             .cornerRadius(10)
                         }
                         .padding()

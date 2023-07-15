@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6530603E2A632ABB00F4E4F6 /* recentAverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6530603D2A632ABB00F4E4F6 /* recentAverage.swift */; };
 		65630F9E2A4394F0005173F8 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65630F9D2A4394F0005173F8 /* PersonalInfoView.swift */; };
 		65630FA02A439AD7005173F8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65630F9F2A439AD7005173F8 /* MainViewModel.swift */; };
 		65630FA22A44007B005173F8 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65630FA12A44007B005173F8 /* SettingViewModel.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6530603D2A632ABB00F4E4F6 /* recentAverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recentAverage.swift; sourceTree = "<group>"; };
 		65630F9D2A4394F0005173F8 /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
 		65630F9F2A439AD7005173F8 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		65630FA12A44007B005173F8 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				65CA75002A54D01600FFDB30 /* Disclosures and Methodologies.swift */,
 				65AFEC652A5C82D700735855 /* chartView.swift */,
 				65AFEC672A5C88A200735855 /* personalInfoViewSettings.swift */,
+				6530603D2A632ABB00F4E4F6 /* recentAverage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				65CCE1412A4B693F00B97665 /* demoMode.swift in Sources */,
 				659CB2342A416C8C003556C0 /* SettingsView.swift in Sources */,
 				65630F9E2A4394F0005173F8 /* PersonalInfoView.swift in Sources */,
+				6530603E2A632ABB00F4E4F6 /* recentAverage.swift in Sources */,
 				65DB27F32A36CA7C00A263AC /* Steady_ProgressApp.swift in Sources */,
 				659CB2322A416C5D003556C0 /*  MainView.swift in Sources */,
 				65FADBBB2A47D5E300E33C0F /* EnvironmentViewModel.swift in Sources */,
