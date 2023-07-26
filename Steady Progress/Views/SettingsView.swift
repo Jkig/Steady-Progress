@@ -10,7 +10,6 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject var mainViewModel = MainViewModel()
     @StateObject var viewModel = SettingsViewModel()
-    // @State var keyboardIsPresented:Bool = false
     @EnvironmentObject var environmentView: EnvironmentViewModel
     
     func setGoalWeight() {
@@ -57,7 +56,7 @@ struct SettingsView: View {
                             Text("Goal Direction")
                             Spacer()
                             Picker("Select a Direction", selection: $viewModel.selection) {
-                                ForEach(viewModel.direction, id: \.self) {
+                                ForEach(["Lose weight", "Maintain weight", "Gain weight"], id: \.self) {
                                     Text($0)
                                 }
                             }

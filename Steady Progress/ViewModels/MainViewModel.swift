@@ -24,7 +24,6 @@ struct Model: Codable, Identifiable {
 
 class MainViewModel: ObservableObject {
     @StateObject var environmentView = EnvironmentViewModel()
-    // @Published var keyboardIsPresented: Bool = false
     @Published var showAlert:Bool = false
     @Published var daysToSmooth:Int = 14
     
@@ -80,6 +79,7 @@ class MainViewModel: ObservableObject {
     }
     
     func storeData() {
+        /// encodes and stored data locally, should only touch this here in the back end
         let encoder = JSONEncoder()
         if let encodedData = try? encoder.encode(data) {
             UserDefaults.standard.set(encodedData, forKey: "dataKey")
@@ -88,7 +88,6 @@ class MainViewModel: ObservableObject {
         if let encodedSmoothData = try? encoder.encode(smoothData) {
             UserDefaults.standard.set(encodedSmoothData, forKey: "smoothDataKey")
         }
-        
     }
     /*
     // testing functions
@@ -131,6 +130,7 @@ class MainViewModel: ObservableObject {
      */
     
     func setUpData(){
+        /// outside of testing, only needed when delting old data
         var minValSoFar:Double = 1000
         var maxValSoFar:Double = 0
         
